@@ -1,9 +1,9 @@
 # Introduction
-Welcome to the very first lab of MICRO-315. As explained in class, labs take place every Thursday from 8.15am to 1pm, and we strongly advice you to make the best use of those hours are those are the only ones where you can get help from assistants ! Feel free do to labs with your project teammate or on your own, as preferred. To ask questions, follow the instructions on the [moodle page of the class](https://moodle.epfl.ch/course/view.php?id=467).
+Welcome to the very first lab of MICRO-315. As explained in class, labs take place every Thursday from 8.15am to 1pm, and we strongly advice you to make the best use of those hours are those are the only ones where you can get help from assistants ! Feel free to do labs with your project teammate or on your own, as preferred. To ask questions, follow the instructions on the [moodle page of the class](https://moodle.epfl.ch/course/view.php?id=467).
 
 - `⏱ Duration`: 3 hours
 ## Goals
-- The main goal is to present the tools that will be used throughought every labs of this semester to program and debug the e-puck2 robot;
+- The main goal is to present the tools that will be used throughought every labs of this semester to program and debug the e-puck2 robot.
 - The second goal is to gain knowledge of the STM32F4 microcontroller and refresh some concepts about peripherals such as GPIOs and TIMERs.
 - All in all, this practical work shows all the necessary steps to program the e-puck2 miniature mobile robot in C, using the standard library provided by ST.
 
@@ -32,7 +32,7 @@ If you are already experienced with VSCode as an IDE, feel free to skip this sec
 Before diving into practical excercises, please give a thorough read to the wiki page of the IDE that contains most of what you need to know to complete the following exercises: 
 - 👉 [🗔 User Interface](https://github.com/EPFL-MICRO-315/TPs-Student/wiki/IDE-%F0%9F%97%94-User-Interface)
 
-Make two new folders called `TPIntro1` and `TPIntro2` in the workplace locally on your computer, next to Lib. If you're not sure where the workplace is, read your the wiki page of the installation for your type of OS, as referenced at the end of [Methodology](#methodology). Open `TPIntro1` on VSCode Epuck2 and by rightclicking on the explorer tab, create a src document that cotains a `main.c` file as shown below.
+Make two new folders called `TPIntro1` and `TPIntro2` in the workplace locally on your computer, next to Lib. If you're not sure where the workplace is, read to the wiki page of the installation for your type of OS, as referenced at the end of [Methodology](#methodology). Open `TPIntro1` on VSCode Epuck2 and by rightclicking on the explorer tab, create a src document that cotains a `main.c` file as shown below.
 
 <p float="left">
     <img src="pictures/TPIntro1.png" alt="drawing" width="600"/>
@@ -50,7 +50,7 @@ Notice that opened tabs are systematically referenced as follows:
 - <font color="blue">Folder within workspace</font>
 - <font color="fuchsia">Subfolder(s)</font>
 
-One of the advantages of VSCode is the advanced search tool. By pressing `Cmd + Shift + f` or by navigating to the search menu, try and search for the `a` variable and notice how the search tool references all variables found throughout the workspace.
+One of the advantages of VSCode is the advanced search tool. By pressing `Shift + Ctrl + f` (`Shift + Cmd + f` on MacOS) or by navigating to the search menu, try and search for the `a` variable and notice how the search tool references all variables found throughout the workspace.
 
 <p float="left">
     <img src="pictures/search.png" alt="drawing" width="300"/>
@@ -63,14 +63,14 @@ Another advantage of VSCode workplaces is the easy and fast comparison it enable
 </p>
 
 ## 1.2 Tools used throughout the labs
-For the purpose of this lab, and to facilitate the programming of the e-puck2 robot, additionnal tools have been set up during the installation.Please get familiar with those tools, including VSCode extensions by reading through the wiki:
+For the purpose of this lab, and to facilitate the programming of the e-puck2 robot, additionnal tools have been set up during the installation. Please get familiar with those tools, including VSCode extensions by reading through the wiki:
 - 👉 [🛠 Tools](https://github.com/EPFL-MICRO-315/TPs-Student/wiki/IDE-%F0%9F%9B%A0-Tools)
 
 
 # Part 2 - Pyenv
 Some labs will require the execution of python scripts, which you may in fact also be interested to develop for your own miniproject. For this purpose, the labs make use of Pyenv (MacOS and Linux) or Pyenv-win (Windows) to facilitate python executions use without disturbing other python projects you may have on your computer. Please read through the wiki of Pyenv before going on to ensure you understand the basics of this tool.
 
-As explained in the wiki, pyenv not only enables us to switch python versions but also keep python modules specific to one project, rather than system-wide. To test this, open a terminal on VSCode Epuck2 by pressing `Cmd + Shift + P` and execute the `Terminal: Create New Terminal` command. Select `TPIntro1` as root for the terminal, and do it all again for `TPIntro2` to end up with two terminal windows.
+As explained in the wiki, pyenv not only enables us to switch python versions but also keep python modules specific to one project, rather than system-wide. To test this, open a terminal on VSCode Epuck2 by pressing `Shift + Ctrl + p` (`Shift + Cmd + p` on MacOS) and execute the `Terminal: Create New Terminal` command. Select `TPIntro1` as root for the terminal, and do it all again for `TPIntro2` to end up with two terminal windows.
 
 <p float="left">
     <img src="pictures/two-terminals.png" alt="drawing" width="600"/>
@@ -93,14 +93,15 @@ python --version # prints out python version
 ```
 
 The second command should print `3.9.0` for terminal 1 and `3.9.10` for terminal 2. This shows that pyenv has effectively changed the python version between both terminals, and that you're well able to use different python version in different projects.
-Now, open an external terminal (not internal to VSCode) and travel to your WorkplaceEPuck2 using `cd`. You should observe the following:
+Now, open an external terminal (not internal to VSCode) and travel to your EPuck2_Workplace using `cd`. You should observe the following:
 
 ```shell
 $ cd ..
 $ python --version
 your system wide python
+$ cd EPuck2_Workplace
 $ python --version
-3.11.2 # NEEDS FINAL WORKPLACE VERSION HERE
+3.11.2
 $ cd TPIntro1
 $ python --version
 3.9.0
@@ -109,7 +110,7 @@ $ python --version
 3.10.0
 ```
 
-This shows that while travelling between different folders, pyenv in fact dynamicalls changes the environment (and thus python version) !
+This shows that while travelling between different folders, pyenv in fact dynamically changes the environment (and thus python version) !
 
 # Part 3 - Presenting the EPuck2 robot
 - 👉 [Presenting the EPuck2](https://github.com/EPFL-MICRO-315/TPs-Student/wiki/EPuck2-Presenting-the-EPuck2)
@@ -140,7 +141,7 @@ On branch main
 nothing to commit, working tree clean
 ```
 
-Making a local git versioning of a piece of code can be done either through command line, as you've just done, or through the VSCode git plugin. To try out the latter approach, press `Cmd + Shift + P` to open the command palette tool, then execute the `Git: Initialize repository` command by selecting `TPIntro2` when prompted. You may notice that the src/ repository of `TPIntro2` turned green, and if you open the git tab of VSCode, you'll also notice that the green letter `U` appears next to `main.c`. This stands for `Untracked`, and embodies the fact that this file is not yet being tracked for by git: it is new and was never seen before by git (as indeed we just started git). Similarly to command line, press the `+` sign next to the file to add it to the next commit, enter a commit message then press `Commit`. Ensure that the commit is well visible in the git graph extension of VSCode (`4` in the picture below).
+Making a local git versioning of a piece of code can be done either through command line, as you've just done, or through the VSCode git plugin. To try out the latter approach, press `Shift + Ctrl + p` (`Shift + Cmd + p` on MacOS) to open the command palette tool, then execute the `Git: Initialize repository` command by selecting `TPIntro2` when prompted. You may notice that the src/ repository of `TPIntro2` turned green, and if you open the git tab of VSCode, you'll also notice that the green letter `U` appears next to `main.c`. This stands for `Untracked`, and embodies the fact that this file is not yet being tracked for by git: it is new and was never seen before by git (as indeed we just started git). Similarly to command line, press the `+` sign next to the file to add it to the next commit, enter a commit message then press `Commit`. Ensure that the commit is well visible in the git graph extension of VSCode (`4` in the picture below).
 
 <p float="left">
     <img src="pictures/git_vscode.png" alt="drawing" width="500"/>
