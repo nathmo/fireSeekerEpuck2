@@ -32,7 +32,7 @@ If you are already experienced with VSCode as an IDE, feel free to skip this sec
 Before diving into practical excercises, please give a thorough read to the wiki page of the IDE that contains most of what you need to know to complete the following exercises: 
 - 👉 [🗔 User Interface](https://github.com/EPFL-MICRO-315/TPs-Student/wiki/IDE-%F0%9F%97%94-User-Interface)
 
-Make two new folders called `TPIntro1` and `TPIntro2` in the workplace locally on your computer, next to Lib. If you're not sure where the workplace is, read to the wiki page of the installation for your type of OS, as referenced at the end of [Methodology](#methodology). Open `TPIntro1` on VSCode Epuck2 and by rightclicking on the explorer tab, create a src document that cotains a `main.c` file as shown below.
+Make two new folders called `TPIntro1` and `TPIntro2` in the workplace locally on your computer, next to Lib. If you're not sure where the workplace is, read to the wiki page of the installation for your type of OS, as referenced at the end of [Methodology](#methodology). Open `TPIntro1` on VSCode Epuck2 and by rightclicking on the explorer tab, create a src folder  that contains a `main.c` file as shown below.
 
 <p float="left">
     <img src="pictures/TPIntro1.png" alt="drawing" width="600"/>
