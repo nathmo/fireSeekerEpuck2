@@ -32,16 +32,16 @@ If you are already experienced with VSCode as an IDE, feel free to skip this sec
 Before diving into practical excercises, please give a thorough read to the wiki page of the IDE that contains most of what you need to know to complete the following exercises: 
 - 👉 [🗔 User Interface](https://github.com/EPFL-MICRO-315/TPs-Wiki/wiki/IDE-%F0%9F%97%94-User-Interface)
 
-Make two new folders called `TPIntro1` and `TPIntro2` in the workplace locally on your computer, next to Lib. If you're not sure where the workplace is, read to the wiki page of the installation for your type of OS, as referenced at the end of [Methodology](#methodology). Open `TPIntro1` on VSCode Epuck2 and by rightclicking on the explorer tab, create a src folder  that contains a `main.c` file as shown below.
+Make two new folders called `TPIntro1` and `TPIntro2` in the workplace locally on your computer, next to Lib. If you're not sure where the workplace is, read to the wiki page of the installation for your type of OS, as referenced at the end of [Methodology](#methodology). Open `TPIntro1` on VSCode Epuck2 and by rightclicking on the explorer tab, create a src folder that contains a `main.c` file as shown below.
 
 <p float="left">
-    <img src="pictures/TPIntro1.png" alt="drawing" width="600"/>
+    <img src="pictures/TPIntro1.png" alt="drawing" width="700"/>
 </p>
 
 Next we will open a VSCode Workspace, which is nothing more than a collection of folders opened within one window. This enables to easily work on multiple projects and individually compare each file within those. Right click on the explorer tab and click *Add folder to workspace*, then select `TPIntro2`. Fill `TPIntro2` similarly to `TPIntro1` to end up as follows:
 
 <p float="left">
-    <img src="pictures/Workplace.png" alt="drawing" width="600"/>
+    <img src="pictures/Workplace.png" alt="drawing" width="700"/>
 </p>
 
 Notice that opened tabs are systematically referenced as follows:
@@ -59,13 +59,12 @@ One of the advantages of VSCode is the advanced search tool. By pressing `Shift 
 Another advantage of VSCode workplaces is the easy and fast comparison it enables between files of different folders. Select both `main.c` files in either folder, then right-click on either file and go for *compare selected*. This will open a new tab that presents the differences between both files, which will later be extensively used for comparing large codes with each other. Watch out that the order in which you select the files will affect the left/right position of the latter in the comparison tool.
 
 <p float="left">
-    <img src="pictures/compare.png" alt="drawing" width="600"/>
+    <img src="pictures/compare.png" alt="drawing" width="700"/>
 </p>
 
 ## 1.2 Tools used throughout the labs
 For the purpose of this lab, and to facilitate the programming of the e-puck2 robot, additionnal tools have been set up during the installation. Please get familiar with those tools, including VSCode extensions by reading through the wiki:
 - 👉 [🛠 Tools](https://github.com/EPFL-MICRO-315/TPs-Wiki/wiki/IDE-%F0%9F%9B%A0-Tools)
-
 
 # Part 2 - Pyenv
 Some labs will require the execution of python scripts, which you may in fact also be interested to develop for your own miniproject. For this purpose, the labs make use of Pyenv (MacOS and Linux) or Pyenv-win (Windows) to facilitate python executions use without disturbing other python projects you may have on your computer. Please read through the wiki of Pyenv before going on to ensure you understand the basics of this tool.
@@ -73,7 +72,7 @@ Some labs will require the execution of python scripts, which you may in fact al
 As explained in the wiki, pyenv not only enables us to switch python versions but also keep python modules specific to one project, rather than system-wide. To test this, open a terminal on VSCode Epuck2 by pressing `Shift + Ctrl + p` (`Shift + Cmd + p` on MacOS) and execute the `Terminal: Create New Terminal` command. Select `TPIntro1` as root for the terminal, and do it all again for `TPIntro2` to end up with two terminal windows.
 
 <p float="left">
-    <img src="pictures/two-terminals.png" alt="drawing" width="600"/>
+    <img src="pictures/two-terminals.png" alt="drawing" width="700"/>
 </p>
 
 Now we will create specific environments based on two different python versions for those two folders. In one of the two terminals just created, type the following:
@@ -144,7 +143,7 @@ nothing to commit, working tree clean
 Making a local git versioning of a piece of code can be done either through command line, as you've just done, or through the VSCode git plugin. To try out the latter approach, press `Shift + Ctrl + p` (`Shift + Cmd + p` on MacOS) to open the command palette tool, then execute the `Git: Initialize repository` command by selecting `TPIntro2` when prompted. You may notice that the src/ repository of `TPIntro2` turned green, and if you open the git tab of VSCode, you'll also notice that the green letter `U` appears next to `main.c`. This stands for `Untracked`, and embodies the fact that this file is not yet being tracked for by git: it is new and was never seen before by git (as indeed we just started git). Similarly to command line, press the `+` sign next to the file to add it to the next commit, enter a commit message then press `Commit`. Ensure that the commit is well visible in the git graph extension of VSCode (`4` in the picture below).
 
 <p float="left">
-    <img src="pictures/git_vscode.png" alt="drawing" width="500"/>
+    <img src="pictures/git_vscode.png" alt="drawing" width="600"/>
 </p>
 
 Now that we've saved a local version of our code, we might want to share it with teammates to collaborate on a common piece of code. And this is where GitHub comes in handy, as it indeed enables the cloud storage of code that we can share with others through pulls, clones and pushes. If you're not familiar with this vocabulary, you're again encouraged to browse through the [git wiki](https://github.com/EPFL-MICRO-315/TPs-Wiki/wiki/Git-Introduction-to-Git#). We'll need a [Github](https://github.com) account to continue with the rest of the practicals, so make sure you have one before going on.
@@ -170,7 +169,7 @@ Now we've linked the `TPIntro1` local git project with one remote. You can refre
 Publishing local branches is typically easier to do with VSCode. In the git tab of VSCode, press `Publish branch`, then select whether to publish it as public or private to publish your branch in a newly created github repository. By comparing both terminals, you should have the same end result through either CLI or VSCode:
 
 <p float="left">
-    <img src="pictures/remotes.png" alt="drawing" width="600"/>
+    <img src="pictures/remotes.png" alt="drawing" width="700"/>
 </p>
 
 Now we'll add the newly created remote repository for `TPIntro2` as second remote to our `TPIntro1` local repository. In the `TPIntro1` terminal session, execute the following:
@@ -194,7 +193,7 @@ $ git merge --allow-unrelated-histories remote2/main
 which will ask us to resolve merge conficts, as indeed the same variables are being renamed in `TPIntro2`. In the confict editor, select to accept the incoming, then resolve the merge confict.
 
 <p float="left">
-    <img src="pictures/merge.png" alt="drawing" width="600"/>
+    <img src="pictures/merge.png" alt="drawing" width="700"/>
 </p>
 
 You should end up with the same content in `TPIntro1` and `TPIntro2`, without having done any manual code edits. Confirm this by doing a VSCode comparisong between both files as seen in [part 1.1](#11-base-vscode).
@@ -202,7 +201,7 @@ You should end up with the same content in `TPIntro1` and `TPIntro2`, without ha
 Now we'll do the same for `TPIntro2` except through VSCode to test the differences. For this, select `add remote` from the three dots next to the `TPIntro2` source control (`1` in image below). Copy the url of your first remote (https://github.com/username/TPIntro1.git) then name it `another_remote`.
 
 <p float="left">
-    <img src="pictures/add_remote.png" alt="drawing" width="600"/>
+    <img src="pictures/add_remote.png" alt="drawing" width="700"/>
 </p>
 
 Pressing `2` in the image above will fetch from all remotes and should make it visible that you've now linked to a second remote `another_remote`.
@@ -217,15 +216,15 @@ Now that we've experienced git on our own, it's time to use it on a real example
 You should now continue the lab by reading through this README.md opened on VSCode locally. To do this, open the `TPs` folder on VSCode and run the following command on the VSCode terminal:
 
 ```shell
-git checkout TP_Intro # This will create a local version of the TPIntro branch on reference
-git push origin TP_Intro --set-upstream
+git checkout TPIntro_Exercise # This will create a local version of the TPIntro branch on the reference remote
+git push origin TPIntro_Exercise --set-upstream
 ```
 
 # Part 6 - Tutorial for programming the EPuck2 robot
 
 ## 6.0 🔌 Preparation 
 - Open the folder `TPs` with VSCode Epuck2
-- Make sure you are in the right branch (`TP_Intro`)
+- Make sure you are in the right branch (`TPIntro_Exercise`)
 - Run the task `Link Library ST to workspace`
 
 ## 6.1 🔨 Building the Project
@@ -274,10 +273,15 @@ git push origin TP_Intro --set-upstream
   - Plug the USB cable (no need to turn on the e-puck2 using the dedicated button since the programmer MCU will automatically power the main MCU) 
   - Specify the port to which the EPuck2's gdb-server is connected, click 👉 [here](https://github.com/EPFL-MICRO-315/TPs-Wiki/wiki/EPuck2-Communicating-with-the-EPuck2#identify-the-ports) for more info
   - Program the EPuck2 by clicking on `Run and Debug` tab (in the left side bar)
-- 💡 click 👉 [here](https://github.com/EPFL-MICRO-315/TPs-Wiki/wiki/IDE-%F0%9F%90%9B-Debugging) for more info about programming and debugging
+
+Ensure that this code indeed shines an LED on the e-puck2.
+
+💡 click 👉 [here](https://github.com/EPFL-MICRO-315/TPs-Wiki/wiki/IDE-%F0%9F%90%9B-Debugging) for more info about programming and debugging
 
 ## 6.3 Testing your EPuck2
-You may find it useful to test your EPuck2 at times when the code executed does not match your expectations. Let's jump into such a case and use another LED by uncommenting the `TEST_NEEDED` define in `main.h`, that will switch the led used to the `BODY_LED`. Build and upload the code, and notice that no LED is being triggered.
+You may find it useful to test your EPuck2 at times when the code executed does not match your expectations. Let's jump into such a case and use another LED by uncommenting the `TEST_NEEDED` define in `main.h`, that will switch the led used to the `BODY_LED`. Build and upload the code, and notice that no LED is being switched ON.
 
-To ensure that the `BODY_LED` is working properly. To do this, read through the wiki section on how to test a robot using the EPuckMonitor. Follow both the demo program 1 and demo program 2.
+To ensure that the `BODY_LED` is working properly, read through the wiki section on how to test a robot using the EPuckMonitor. Follow both the demo program 1 and demo program 2.
 - 👉 [Testing the EPuck2](https://github.com/EPFL-MICRO-315/TPs-Wiki/wiki/EPuck2-Testing-the-EPuck2#introduction)
+
+Normally you should observe that the light is indeed turning on and off in those test programs, and you can even manually turn it ON through EPuck Monitor (demo program 2). This shows that there is no problem with the hardware of the EPuck2, but the issue is software-wise. You will see in the next lab how different LEDs of the EPuck behave differently and how these differences impact the software approach that is required.
