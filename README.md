@@ -18,9 +18,9 @@ To achieve the main goal, we will go through the following steps:
   
 To install the IDE and tools used in the labs, click on one the links accordingly to your computer's configuration here below and follow the instructions. If you encounter issues with the installation, please ask a question using the link on the [moodle](https://moodle.epfl.ch/course/view.php?id=467).
 
-- 👉 [🍎 MacOS](https://github.com/EPFL-MICRO-315/TPs-Student/wiki/Installing-the-IDE-%F0%9F%8D%8E-MacOS)
-- 👉 [❖ Windows](https://github.com/EPFL-MICRO-315/TPs-Student/wiki/Installing-the-IDE-%E2%9D%96-Windows)
-- 👉 [🐧 Linux](https://github.com/EPFL-MICRO-315/TPs-Student/wiki/Installing-the-IDE-%F0%9F%90%A7-Linux)
+- 👉 [🍎 MacOS](https://github.com/EPFL-MICRO-315/TPs-Wiki/wiki/Installing-the-IDE-%F0%9F%8D%8E-MacOS)
+- 👉 [❖ Windows](https://github.com/EPFL-MICRO-315/TPs-Wiki/wiki/Installing-the-IDE-%E2%9D%96-Windows)
+- 👉 [🐧 Linux](https://github.com/EPFL-MICRO-315/TPs-Wiki/wiki/Installing-the-IDE-%F0%9F%90%A7-Linux)
 
 
 # Part 1 - Integrated Development Environment (IDE)
@@ -30,7 +30,7 @@ The IDE now freshly installed, let's start by learning how to navigate the IDE a
 If you are already experienced with VSCode as an IDE, feel free to skip this section and continue towards [Part 1.2](#12-tools-used-throughout-the-labs).
 
 Before diving into practical excercises, please give a thorough read to the wiki page of the IDE that contains most of what you need to know to complete the following exercises: 
-- 👉 [🗔 User Interface](https://github.com/EPFL-MICRO-315/TPs-Student/wiki/IDE-%F0%9F%97%94-User-Interface)
+- 👉 [🗔 User Interface](https://github.com/EPFL-MICRO-315/TPs-Wiki/wiki/IDE-%F0%9F%97%94-User-Interface)
 
 Make two new folders called `TPIntro1` and `TPIntro2` in the workplace locally on your computer, next to Lib. If you're not sure where the workplace is, read to the wiki page of the installation for your type of OS, as referenced at the end of [Methodology](#methodology). Open `TPIntro1` on VSCode Epuck2 and by rightclicking on the explorer tab, create a src folder  that contains a `main.c` file as shown below.
 
@@ -64,7 +64,7 @@ Another advantage of VSCode workplaces is the easy and fast comparison it enable
 
 ## 1.2 Tools used throughout the labs
 For the purpose of this lab, and to facilitate the programming of the e-puck2 robot, additionnal tools have been set up during the installation. Please get familiar with those tools, including VSCode extensions by reading through the wiki:
-- 👉 [🛠 Tools](https://github.com/EPFL-MICRO-315/TPs-Student/wiki/IDE-%F0%9F%9B%A0-Tools)
+- 👉 [🛠 Tools](https://github.com/EPFL-MICRO-315/TPs-Wiki/wiki/IDE-%F0%9F%9B%A0-Tools)
 
 
 # Part 2 - Pyenv
@@ -113,14 +113,14 @@ $ python --version
 This shows that while travelling between different folders, pyenv in fact dynamically changes the environment (and thus python version) !
 
 # Part 3 - Presenting the EPuck2 robot
-- 👉 [Presenting the EPuck2](https://github.com/EPFL-MICRO-315/TPs-Student/wiki/EPuck2-Presenting-the-EPuck2)
-- 👉 [Testing the EPuck2](https://github.com/EPFL-MICRO-315/TPs-Student/wiki/EPuck2-Testing-the-EPuck2)
+- 👉 [Presenting the EPuck2](https://github.com/EPFL-MICRO-315/TPs-Wiki/wiki/EPuck2-Presenting-the-EPuck2)
+- 👉 [Testing the EPuck2](https://github.com/EPFL-MICRO-315/TPs-Wiki/wiki/EPuck2-Testing-the-EPuck2)
 
 # Part 4 - Git introduction
 Now that we're familiar with the IDE and the robot, there's a final step before we can start coding. As a means to facilitate the reviewing, testing, sharing and saving of code, many developers use a code versioning tool. For this course (i.e labs **and miniproject**), we've decided to make use of `git`, which is the most widely used versioning tool. Please read through the following wiki page to get familiar with the basic concepts of `git`.
-- 👉 [Introduction to Git](https://github.com/EPFL-MICRO-315/TPs-Student/wiki/Git-Introduction-to-Git)
+- 👉 [Introduction to Git](https://github.com/EPFL-MICRO-315/TPs-Wiki/wiki/Git-Introduction-to-Git)
 
-To experiment what we've just read, we'll again play with the two repositories created earlier. In the terminal `TPIntro1`, enter the following and observe what happens after each command in the git tab of the IDE (check out the IDE 👉 [🗔 User Interface](https://github.com/EPFL-MICRO-315/TPs-Student/wiki/IDE-%F0%9F%97%94-User-Interface) wiki page if needed).
+To experiment what we've just read, we'll again play with the two repositories created earlier. In the terminal `TPIntro1`, enter the following and observe what happens after each command in the git tab of the IDE (check out the IDE 👉 [🗔 User Interface](https://github.com/EPFL-MICRO-315/TPs-Wiki/wiki/IDE-%F0%9F%97%94-User-Interface) wiki page if needed).
 
 ```shell
 $ git init # init git. This will typically create a .git folder locally
@@ -147,7 +147,7 @@ Making a local git versioning of a piece of code can be done either through comm
     <img src="pictures/git_vscode.png" alt="drawing" width="500"/>
 </p>
 
-Now that we've saved a local version of our code, we might want to share it with teammates to collaborate on a common piece of code. And this is where GitHub comes in handy, as it indeed enables the cloud storage of code that we can share with others through pulls, clones and pushes. If you're not familiar with this vocabulary, you're again encouraged to browse through the [git wiki](https://github.com/EPFL-MICRO-315/TPs-Student/wiki/Git-Introduction-to-Git#). We'll need a [Github](https://github.com) account to continue with the rest of the practicals, so make sure you have one before going on.
+Now that we've saved a local version of our code, we might want to share it with teammates to collaborate on a common piece of code. And this is where GitHub comes in handy, as it indeed enables the cloud storage of code that we can share with others through pulls, clones and pushes. If you're not familiar with this vocabulary, you're again encouraged to browse through the [git wiki](https://github.com/EPFL-MICRO-315/TPs-Wiki/wiki/Git-Introduction-to-Git#). We'll need a [Github](https://github.com) account to continue with the rest of the practicals, so make sure you have one before going on.
 
 First, we'll create a remote repository on your GitHub profile. Anywhere on Github, click on your profile top left of the screen, then on *Your repositories*.
 
@@ -210,9 +210,9 @@ We are now finished with the two repositories `TPIntro1` and `TPIntro2`, and the
 
 # Part 5 - Setting up your group TP's repository
 Now that we've experienced git on our own, it's time to use it on a real example: setting up your group repositories. The following wiki links should guide you through this process.
-- Click 👉 [here](https://github.com/EPFL-MICRO-315/TPs-Student/wiki/Git-Setting-up-git-for-TPs) to set up git for the TPs
-- Click 👉 [here](https://github.com/EPFL-MICRO-315/TPs-Student/wiki/Git-Working-in-groups) to learn how to work in group using Git
-- Click 👉 [here](https://github.com/EPFL-MICRO-315/TPs-Student/wiki/Git-Asking-for-support) to check how to ask for support
+- Click 👉 [here](https://github.com/EPFL-MICRO-315/TPs-PrivateWiki/wiki/Git-Setting-up-git-for-TPs) to set up git for the TPs
+- Click 👉 [here](https://github.com/EPFL-MICRO-315/TPs-Wiki/wiki/Git-Working-in-groups) to learn how to work in group using Git
+- Click 👉 [here](https://github.com/EPFL-MICRO-315/TPs-Wiki/wiki/Git-Asking-for-support) to check how to ask for support
 
 You should now continue the lab by reading through this README.md opened on VSCode locally. To do this, open the `TPs` folder on VSCode and run the following command on the VSCode terminal:
 
@@ -272,12 +272,12 @@ git push origin TP_Intro --set-upstream
 ## 6.2 🐞 Programming and debugging the EPuck2 robot
 - Now that you have built your code and created an **.elf** file that can be loaded on the microcontroller, you can program the device:
   - Plug the USB cable (no need to turn on the e-puck2 using the dedicated button since the programmer MCU will automatically power the main MCU) 
-  - Specify the port to which the EPuck2's gdb-server is connected, click 👉 [here](https://github.com/EPFL-MICRO-315/TPs-Student/wiki/EPuck2-Communicating-with-the-EPuck2#identify-the-ports) for more info
+  - Specify the port to which the EPuck2's gdb-server is connected, click 👉 [here](https://github.com/EPFL-MICRO-315/TPs-Wiki/wiki/EPuck2-Communicating-with-the-EPuck2#identify-the-ports) for more info
   - Program the EPuck2 by clicking on `Run and Debug` tab (in the left side bar)
-- 💡 click 👉 [here](https://github.com/EPFL-MICRO-315/TPs-Student/wiki/IDE-%F0%9F%90%9B-Debugging) for more info about programming and debugging
+- 💡 click 👉 [here](https://github.com/EPFL-MICRO-315/TPs-Wiki/wiki/IDE-%F0%9F%90%9B-Debugging) for more info about programming and debugging
 
 ## 6.3 Testing your EPuck2
 You may find it useful to test your EPuck2 at times when the code executed does not match your expectations. Let's jump into such a case and use another LED by uncommenting the `TEST_NEEDED` define in `main.h`, that will switch the led used to the `BODY_LED`. Build and upload the code, and notice that no LED is being triggered.
 
 To ensure that the `BODY_LED` is working properly. To do this, read through the wiki section on how to test a robot using the EPuckMonitor. Follow both the demo program 1 and demo program 2.
-- 👉 [Testing the EPuck2](https://github.com/EPFL-MICRO-315/TPs-Student/wiki/EPuck2-Testing-the-EPuck2#introduction)
+- 👉 [Testing the EPuck2](https://github.com/EPFL-MICRO-315/TPs-Wiki/wiki/EPuck2-Testing-the-EPuck2#introduction)
