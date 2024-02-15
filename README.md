@@ -45,10 +45,10 @@ Next we will open a VSCode Workspace, which is nothing more than a collection of
 </p>
 
 Notice that opened tabs are systematically referenced as follows:
-- <font color="yellow">File type (.c, .py, .ipynb, etc.)</font>
-- <font color="lime">File name including extension</font>
-- <font color="blue">Folder within workspace</font>
-- <font color="fuchsia">Subfolder(s)</font>
+- <font color="yellow">File type (.c, .py, .ipynb, etc.) (Yellow)</font>
+- <font color="lime">File name including extension (Lime)</font>
+- <font color="blue">Folder within workspace (Blue)</font>
+- <font color="fuchsia">Subfolder(s) (Fuchsia)</font>
 
 One of the advantages of VSCode is the advanced search tool. By pressing `Shift + Ctrl + f` (`Shift + Cmd + f` on MacOS) or by navigating to the search menu, try and search for the `a` variable and notice how the search tool references all variables found throughout the workspace.
 
