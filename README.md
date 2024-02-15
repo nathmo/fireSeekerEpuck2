@@ -16,7 +16,7 @@ To achieve the main goal, we will go through the following steps:
   - Setup the git repository for your group: [Part 5](#part-5---setting-up-your-group-tps-repository)
   - Getting used to program an e-puck2: use the on board debugger interface for programming and debugging [Part 6](#part-6---tutorial-for-programming-the-epuck2-robot)
   
-To install the IDE and tools used in the labs, click on one the links accordingly to your computer's configuration here below and follow the instructions. If you encounter issues with the installation, please ask a question using the link on the [moodle](https://moodle.epfl.ch/course/view.php?id=467).
+To install the IDE and tools used in the labs, click on one the links accordingly to your computer's configuration here below and follow the instructions. If you encounter issues with the installation, please request an assistant to help out using this [link](https://docs.google.com/forms/d/e/1FAIpQLSfe6vB1Q9J9KeZzb76N6CFCBLsSWiTrT8yI7M5slsgOXOBlog/closedform), also available on the [moodle](https://moodle.epfl.ch/course/view.php?id=467).
 
 - 👉 [🍎 MacOS](https://github.com/EPFL-MICRO-315/TPs-Wiki/wiki/Installing-the-IDE-%F0%9F%8D%8E-MacOS)
 - 👉 [❖ Windows](https://github.com/EPFL-MICRO-315/TPs-Wiki/wiki/Installing-the-IDE-%E2%9D%96-Windows)
@@ -213,7 +213,7 @@ Now that we've experienced git on our own, it's time to use it on a real example
 - Click 👉 [here](https://github.com/EPFL-MICRO-315/TPs-Wiki/wiki/Git-Working-in-groups) to learn how to work in group using Git
 - Click 👉 [here](https://github.com/EPFL-MICRO-315/TPs-Wiki/wiki/Git-Asking-for-support) to check how to ask for support
 
-You should now continue the lab by reading through this README.md opened on VSCode locally. To do this, open the `TPs` folder on VSCode and run the following command on the VSCode terminal:
+You should now continue the lab by reading through this README.md, but opened on VSCode locally rather than on Github.com. To do this, open the `TPs` folder on VSCode and run the following command on the VSCode terminal:
 
 ```shell
 git checkout TPIntro_Exercise # This will create a local version of the TPIntro branch on the reference remote
