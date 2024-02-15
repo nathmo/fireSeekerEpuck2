@@ -35,13 +35,13 @@ Before diving into practical excercises, please give a thorough read to the wiki
 Make two new folders called `TPIntro1` and `TPIntro2` in the workplace locally on your computer, next to Lib. If you're not sure where the workplace is, read to the wiki page of the installation for your type of OS, as referenced at the end of [Methodology](#methodology). Open `TPIntro1` on VSCode Epuck2 and by rightclicking on the explorer tab, create a src folder that contains a `main.c` file as shown below.
 
 <p float="left">
-    <img src="pictures/TPIntro1.png" alt="drawing" width="700"/>
+    <img src="pictures/TPIntro1.png" alt="drawing" width="800"/>
 </p>
 
 Next we will open a VSCode Workspace, which is nothing more than a collection of folders opened within one window. This enables to easily work on multiple projects and individually compare each file within those. Right click on the explorer tab and click *Add folder to workspace*, then select `TPIntro2`. Fill `TPIntro2` similarly to `TPIntro1` to end up as follows:
 
 <p float="left">
-    <img src="pictures/Workplace.png" alt="drawing" width="700"/>
+    <img src="pictures/Workplace.png" alt="drawing" width="800"/>
 </p>
 
 Notice that opened tabs are systematically referenced as follows:
@@ -59,7 +59,7 @@ One of the advantages of VSCode is the advanced search tool. By pressing `Shift 
 Another advantage of VSCode workplaces is the easy and fast comparison it enables between files of different folders. Select both `main.c` files in either folder, then right-click on either file and go for *compare selected*. This will open a new tab that presents the differences between both files, which will later be extensively used for comparing large codes with each other. Watch out that the order in which you select the files will affect the left/right position of the latter in the comparison tool.
 
 <p float="left">
-    <img src="pictures/compare.png" alt="drawing" width="700"/>
+    <img src="pictures/compare.png" alt="drawing" width="800"/>
 </p>
 
 ## 1.2 Tools used throughout the labs
@@ -72,7 +72,7 @@ Some labs will require the execution of python scripts, which you may in fact al
 As explained in the wiki, pyenv not only enables us to switch python versions but also keep python modules specific to one project, rather than system-wide. To test this, open a terminal on VSCode Epuck2 by pressing `Shift + Ctrl + p` (`Shift + Cmd + p` on MacOS) and execute the `Terminal: Create New Terminal` command. Select `TPIntro1` as root for the terminal, and do it all again for `TPIntro2` to end up with two terminal windows.
 
 <p float="left">
-    <img src="pictures/two-terminals.png" alt="drawing" width="700"/>
+    <img src="pictures/two-terminals.png" alt="drawing" width="800"/>
 </p>
 
 Now we will create specific environments based on two different python versions for those two folders. In one of the two terminals just created, type the following:
@@ -169,7 +169,7 @@ Now we've linked the `TPIntro1` local git project with one remote. You can refre
 Publishing local branches is typically easier to do with VSCode. In the git tab of VSCode, press `Publish branch`, then select whether to publish it as public or private to publish your branch in a newly created github repository. By comparing both terminals, you should have the same end result through either CLI or VSCode:
 
 <p float="left">
-    <img src="pictures/remotes.png" alt="drawing" width="700"/>
+    <img src="pictures/remotes.png" alt="drawing" width="800"/>
 </p>
 
 Now we'll add the newly created remote repository for `TPIntro2` as second remote to our `TPIntro1` local repository. In the `TPIntro1` terminal session, execute the following:
@@ -193,7 +193,7 @@ $ git merge --allow-unrelated-histories remote2/main
 which will ask us to resolve merge conficts, as indeed the same variables are being renamed in `TPIntro2`. In the confict editor, select to accept the incoming, then resolve the merge confict.
 
 <p float="left">
-    <img src="pictures/merge.png" alt="drawing" width="700"/>
+    <img src="pictures/merge.png" alt="drawing" width="800"/>
 </p>
 
 You should end up with the same content in `TPIntro1` and `TPIntro2`, without having done any manual code edits. Confirm this by doing a VSCode comparisong between both files as seen in [part 1.1](#11-base-vscode).
@@ -201,7 +201,7 @@ You should end up with the same content in `TPIntro1` and `TPIntro2`, without ha
 Now we'll do the same for `TPIntro2` except through VSCode to test the differences. For this, select `add remote` from the three dots next to the `TPIntro2` source control (`1` in image below). Copy the url of your first remote (https://github.com/username/TPIntro1.git) then name it `another_remote`.
 
 <p float="left">
-    <img src="pictures/add_remote.png" alt="drawing" width="700"/>
+    <img src="pictures/add_remote.png" alt="drawing" width="800"/>
 </p>
 
 Pressing `2` in the image above will fetch from all remotes and should make it visible that you've now linked to a second remote `another_remote`.
