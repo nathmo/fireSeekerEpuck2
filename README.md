@@ -1,5 +1,5 @@
 # Introduction
-Welcome to the very first lab of MICRO-315. As explained in class, labs take place every Thursday from 8.15am to 1pm, and we strongly advice you to make the best use of those hours are those are the only ones where you can get help from assistants ! Feel free to do labs with your project teammate or on your own, as preferred. To ask questions, follow the instructions on the [moodle page of the class](https://moodle.epfl.ch/course/view.php?id=467).
+Welcome to the very first lab of MICRO-315. As explained in class, labs take place every Thursday from 8.15am to 1pm, and we strongly advice you to make the best use of those hours are those are the only ones where you can get help from assistants ! Feel free to do labs with your project teammate or on your own, as preferred. To ask questions to or get help from teaching assistants, fill in the [request form](https://docs.google.com/forms/d/e/1FAIpQLSfe6vB1Q9J9KeZzb76N6CFCBLsSWiTrT8yI7M5slsgOXOBlog/closedform) (*This form accepts submissions only during lab hours*)
 
 - `⏱ Duration`: 3 hours
 ## Goals
@@ -279,9 +279,9 @@ Ensure that this code indeed shines an LED on the e-puck2.
 💡 click 👉 [here](https://github.com/EPFL-MICRO-315/TPs-Wiki/wiki/IDE-%F0%9F%90%9B-Debugging) for more info about programming and debugging
 
 ## 6.3 Testing your EPuck2
-You may find it useful to test your EPuck2 at times when the code executed does not match your expectations. Let's jump into such a case and use another LED by uncommenting the `TEST_NEEDED` define in `main.h`, that will switch the led used to the `BODY_LED`. Build and upload the code, and notice that no LED is being switched ON.
+You may find it useful to test your EPuck2 at times when the code executed does not match your expectations. Let's jump into such a case and use another LED by **uncommenting** the `TEST_NEEDED` define in `main.h`, that will switch the led used to the `BODY_LED`. Build and upload the code, and notice that no LED is being switched ON.
 
 To ensure that the `BODY_LED` is working properly, read through the wiki section on how to test a robot using the EPuckMonitor. Follow both the demo program 1 and demo program 2.
 - 👉 [Testing the EPuck2](https://github.com/EPFL-MICRO-315/TPs-Wiki/wiki/EPuck2-Testing-the-EPuck2#introduction)
 
-Normally you should observe that the light is indeed turning on and off in those test programs, and you can even manually turn it ON through EPuck Monitor (demo program 2). This shows that there is no problem with the hardware of the EPuck2, but the issue is software-wise. You will see in the next lab how different LEDs of the EPuck behave differently and how these differences impact the software approach that is required.
+You should observe that the light is indeed turning on and off in those test programs, and you can even manually turn it ON through EPuck Monitor (demo program 2). This shows that there is no problem with the hardware of the EPuck2, and that the issue is thus a software one. You will learn in the next lab how different LEDs of the EPuck2 behave differently and how these differences impact the software approach that is required to correctly handle them.
