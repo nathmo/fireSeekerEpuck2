@@ -75,7 +75,7 @@ As explained in the wiki, pyenv not only enables us to switch python versions bu
     <img src="pictures/two-terminals.png" alt="drawing" width="800"/>
 </p>
 
-Now we will create specific environments based on two different python versions for those two folders. In one of the two terminals just created, type the following:
+Now we will create specific environments based on two different python versions for those two folders. In one of the two terminals just created, type the following commands. If you are on **Windows**, use `pyenv-venv` rather than `pyenv virtualenv`.
 
 ```shell
 pyenv install 3.9.0 # intall python 3.9.0 ready to use
