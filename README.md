@@ -75,11 +75,13 @@ As explained in the wiki, pyenv not only enables us to switch python versions bu
     <img src="pictures/two-terminals.png" alt="drawing" width="800"/>
 </p>
 
-Now we will create specific environments based on two different python versions for those two folders. In one of the two terminals just created, type the following commands. If you are on **Windows**, use `pyenv-venv` rather than `pyenv virtualenv`.
+Now we will create specific environments based on two different python versions for those two folders. In one of the two terminals just created, type the following commands. If you are on **Windows**, do not use the commands `pyenv virtualenv` as no virtual environment is used.
 
 ```shell
 pyenv install 3.9.0 # intall python 3.9.0 ready to use
 pyenv install 3.10.0 # intall python 3.10.0 ready to use
+
+# Only MacOS and Linux:
 pyenv virtualenv 3.9.0 TPIntro1-env # Create a pyenv environment 
 pyenv virtualenv 3.10.0 TPIntro2-env # Create another pyenv environment 
 ```
@@ -87,7 +89,14 @@ pyenv virtualenv 3.10.0 TPIntro2-env # Create another pyenv environment
 Then, in each terminal, execute the following commands by replacing `X` by the folder number (1 or 2).
 
 ```shell
+#MacOS and Linux (replace X by 1 and 2 successively):
 pyenv local TPIntroX-env # Links the pyenv environment to the folder
+
+# Windows:
+pyenv local 3.9.0 #if in TPIntro1
+pyenv local 3.10.0 #if in TPIntro2
+
+# All platforms:
 python --version # prints out python version
 ```
 
@@ -109,7 +118,7 @@ $ python --version
 3.10.0
 ```
 
-This shows that while travelling between different folders, pyenv in fact dynamically changes the environment (and thus python version) !
+This shows that while travelling between different folders, pyenv in fact dynamically changes the environment (and thus python version) ! All the packages that you install with `pip` (`numpy`, `pandas`, etc.) will be stored independently for all these folders, thus not interferring with other projects you may have.
 
 # Part 3 - Presenting the EPuck2 robot
 - 👉 [Presenting the EPuck2](https://github.com/EPFL-MICRO-315/TPs-Wiki/wiki/EPuck2-Presenting-the-EPuck2)
