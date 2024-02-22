@@ -78,11 +78,11 @@ As explained in the wiki, pyenv not only enables us to switch python versions bu
 Now we will create specific environments based on two different python versions for those two folders. In one of the two terminals just created, type the following commands. If you are on **Windows**, do not use the commands `pyenv virtualenv` as no virtual environment is used.
 
 ```shell
-pyenv install 3.9.0 # intall python 3.9.0 ready to use
+pyenv install 3.9.1 # intall python 3.9.1 ready to use
 pyenv install 3.10.0 # intall python 3.10.0 ready to use
 
 # Only MacOS and Linux:
-pyenv virtualenv 3.9.0 TPIntro1-env # Create a pyenv environment 
+pyenv virtualenv 3.9.1 TPIntro1-env # Create a pyenv environment 
 pyenv virtualenv 3.10.0 TPIntro2-env # Create another pyenv environment 
 ```
 
@@ -93,14 +93,14 @@ Then, in each terminal, execute the following commands by replacing `X` by the f
 pyenv local TPIntroX-env # Links the pyenv environment to the folder
 
 # Windows:
-pyenv local 3.9.0 #if in TPIntro1
+pyenv local 3.9.1 #if in TPIntro1
 pyenv local 3.10.0 #if in TPIntro2
 
 # All platforms:
 python --version # prints out python version
 ```
 
-The second command should print `3.9.0` for terminal 1 and `3.9.10` for terminal 2. This shows that pyenv has effectively changed the python version between both terminals, and that you're well able to use different python version in different projects.
+The last command should print `3.9.1` for terminal 1 and `3.10.0` for terminal 2. This shows that pyenv has effectively changed the python version between both terminals, and that you're well able to use different python version in different projects.
 Now, open an external terminal (not internal to VSCode) and travel to your EPuck2_Workplace using `cd`. You should observe the following:
 
 ```shell
@@ -112,7 +112,7 @@ $ python --version
 3.11.2
 $ cd TPIntro1
 $ python --version
-3.9.0
+3.9.1
 $ cd ../TPIntro2
 $ python --version
 3.10.0
@@ -121,11 +121,12 @@ $ python --version
 This shows that while travelling between different folders, pyenv in fact dynamically changes the environment (and thus python version) ! All the packages that you install with `pip` (`numpy`, `pandas`, etc.) will be stored independently for all these folders, thus not interferring with other projects you may have.
 
 # Part 3 - Presenting the EPuck2 robot
+Read through the following documentation to get acquainted with the e-puck2.
+
 - 👉 [Presenting the EPuck2](https://github.com/EPFL-MICRO-315/TPs-Wiki/wiki/EPuck2-Presenting-the-EPuck2)
-- 👉 [Testing the EPuck2](https://github.com/EPFL-MICRO-315/TPs-Wiki/wiki/EPuck2-Testing-the-EPuck2)
 
 # Part 4 - Git introduction
-Now that we're familiar with the IDE and the robot, there's a final step before we can start coding. As a means to facilitate the reviewing, testing, sharing and saving of code, many developers use a code versioning tool. For this course (i.e labs **and miniproject**), we've decided to make use of `git`, which is the most widely used versioning tool. Please read through the following wiki page to get familiar with the basic concepts of `git`.
+Now that we're familiar with the IDE and the robot, there's a final step before we can start coding. As a mean to facilitate the reviewing, testing, sharing and saving of code, many developers use a code versioning tool. For this course (i.e labs **and miniproject**), we've decided to make use of `git`, which is the most widely used versioning tool. Please read through the following wiki page to get familiar with the basic concepts behind `git`.
 - 👉 [Introduction to Git](https://github.com/EPFL-MICRO-315/TPs-Wiki/wiki/Git-Introduction-to-Git)
 
 To experiment what we've just read, we'll again play with the two repositories created earlier. In the terminal `TPIntro1`, enter the following and observe what happens after each command in the git tab of the IDE (check out the IDE 👉 [🗔 User Interface](https://github.com/EPFL-MICRO-315/TPs-Wiki/wiki/IDE-%F0%9F%97%94-User-Interface) wiki page if needed).
