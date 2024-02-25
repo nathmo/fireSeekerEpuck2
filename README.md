@@ -90,7 +90,7 @@ Depending of your OS, create 2 pyenv environments:
 >```shell
 >pyenv duplicate 3.9.1 TPIntro1-env # Create a pyenv environment
 >pyenv duplicate 3.10.0 TPIntro2-env # Create another pyenv environment
-
+>
 >```
 
 >[!CAUTION]
@@ -98,7 +98,7 @@ Depending of your OS, create 2 pyenv environments:
 >```shell
 >pyenv virtualenv 3.9.1 TPIntro1-env # Create a pyenv environment
 >pyenv virtualenv 3.10.0 TPIntro2-env # Create another pyenv environment
-
+>
 >```
 
 In each terminal execute this command by ***replacing `X` by the folder number (1 or 2)*** in order to link a pyenv environment with the folder:
