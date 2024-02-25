@@ -309,7 +309,7 @@ Now we'll add the newly created remote repository for `TPIntro2` as second remot
 > [!WARNING]
 > DON'T FORGET to replace `username` with your github username in this following command!!
 
-<div class="box">output console:<pre>
+<div class="box"><pre>
 git remote add another_remote https://github.com/username/TPIntro2.git
 </pre></div>
 
