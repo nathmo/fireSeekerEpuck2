@@ -80,6 +80,7 @@ Now we will create specific environments based on two different python versions 
 ```shell
 pyenv install 3.9.1 # intall python 3.9.1 ready to use
 pyenv install 3.10.0 # intall python 3.10.0 ready to use
+
 ```
 
 Depending of your OS, create 2 pyenv environments:
@@ -87,15 +88,17 @@ Depending of your OS, create 2 pyenv environments:
 >[!CAUTION]
 >Under Windows ONLY:
 >```shell
->pyenv duplicate 3.9.1 TPIntro1-env # Create a pyenv environment 
->pyenv duplicate 3.10.0 TPIntro2-env # Create another pyenv environment 
+>pyenv duplicate 3.9.1 TPIntro1-env # Create a pyenv environment
+>pyenv duplicate 3.10.0 TPIntro2-env # Create another pyenv environment
+
 >```
 
 >[!CAUTION]
 >Under MacOS or Linux ONLY:
 >```shell
->pyenv virtualenv 3.9.1 TPIntro1-env # Create a pyenv environment 
->pyenv virtualenv 3.10.0 TPIntro2-env # Create another pyenv environment 
+>pyenv virtualenv 3.9.1 TPIntro1-env # Create a pyenv environment
+>pyenv virtualenv 3.10.0 TPIntro2-env # Create another pyenv environment
+
 >```
 
 In each terminal execute this command by ***replacing `X` by the folder number (1 or 2)*** in order to link a pyenv environment with the folder:
@@ -109,6 +112,7 @@ In each terminal execute this command in order to check the Python version:
 
 ```shell
 python --version # prints out python version
+
 ```
 
 For the terminal 1 it should print:
@@ -130,6 +134,7 @@ Now, open an external terminal (not internal to VSCode) and travel **FROM your E
 ```shell
 cd ..
 python --version
+
 ```
 If your system had already Python installed before this TP it will be displayed:
 
@@ -152,6 +157,7 @@ Then go in again in your EPuck2_Workplace:
 ```shell
 cd EPuck2_Workplace
 python --version
+
 ```
 
 <div class="box">output console:<pre>
@@ -163,6 +169,7 @@ then enter in TPIntro1 subfolder:
 ```shell
 cd TPIntro1
 python --version
+
 ```
 
 <div class="box">output console:<pre>
@@ -185,6 +192,7 @@ To experiment what we've just read, we'll again play with the two repositories c
 ```shell
 git init # init git. This will typically create a .git folder locally
 git status
+
 ```
 
 <div class="box">output console:<pre>
@@ -209,6 +217,7 @@ The code being part of the project must be added then commited:
 git add src/ # add all files in src directory to the next commit
 git commit -m "first commit" # commit
 git status
+
 ```
 
 <div class="box">output console:<pre>
@@ -231,6 +240,7 @@ echo .python_version >> .gitignore
 git add .gitignore # add all files in src directory to the next commit
 git commit -m "Git ignore of .python_version" # commit
 git status
+
 ```
 
 <div class="box">output console:<pre>
@@ -256,6 +266,7 @@ Click on *New*, name the repository `TPIntro1`, decide whether to make it privat
 
 ```shell
 git remote -v
+
 ```
 
 This command should show nothing as no link with any remote has yet been established.
@@ -271,6 +282,7 @@ then check the result:
 
 ```shell
 git remote -v
+
 ```
 
 <div class="box">output console:<pre>
@@ -282,6 +294,7 @@ and push all branches onto the origin remote:
 
 ```shell
 git push origin --all
+
 ```
 
 Now we've linked the `TPIntro1` local git project with one remote. You can refresh your browser page of github and confirm that your code is now available on there too. What you'll encounter in the labs is typically that local git projects are linked to several remotes, meaning that you can fetch from, pull from and push to different places in the cloud. To test this behaviour, we'll create a github repository for `TPIntro2` too.
@@ -304,6 +317,7 @@ Take a look to ensure the change has been made:
 
 ```shell
 git remote -v
+
 ```
 
 <div class="box">output console:<pre>
@@ -317,12 +331,14 @@ then fetch both remotes to have both indexes locally available:
 
 ```shell
 git fetch --all
+
 ```
 
 Now we can fetch and push to either remote, based on what we want to do. For instance, say we want to merge both repositories, we can execute:
 
 ```shell
 git merge --allow-unrelated-histories another_remote/main
+
 ```
 
 which will ask us to resolve merge conficts, as indeed the same variables are being renamed in `TPIntro2`. In the confict editor, select to accept the incoming, then resolve the merge confict.
@@ -353,6 +369,7 @@ You should now continue the lab by reading through this README.md, but opened on
 ```shell
 git checkout TPIntro_Exercise # This will create a local version of the TPIntro branch on the reference remote
 git push origin TPIntro_Exercise --set-upstream
+
 ```
 
 # Part 6 - Tutorial for programming the EPuck2 robot
