@@ -1,7 +1,7 @@
 #ifndef MAIN_H
 #define MAIN_H
 
-/* LEDs that can be used in this TP1
+/* LEDs that can be used in this TP1 fgg
   LED1 			: GPIOD pin 5
   LED3 			: GPIOD pin 6
   LED5 			: GPIOD pin 10

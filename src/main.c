@@ -3,7 +3,7 @@
 #include "gpio.h"
 #include "main.h"
 
-// Init function required by __libc_init_array
+// Init function required by __libc_init_array df
 void _init(void) {}
 
 int main(void)
