@@ -118,13 +118,13 @@ python --version # prints out python version
 For the terminal 1 it should print:
 
 <div class="box">output console:<pre>
-`Python 3.9.1`
+Python 3.9.1
 </pre></div>
 
 and for the terminal 2:
 
 <div class="box">output console:<pre>
-`Python 3.10.0`
+Python 3.10.0
 </pre></div>
 
 This shows that pyenv has effectively changed the python version between both terminals, and that you're well able to use different python version in different projects.
