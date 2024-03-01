@@ -1,5 +1,5 @@
 # Introduction
-Welcome to the very first lab of MICRO-315. As explained in class, labs take place every Thursday from 8.15am to 1pm, and we strongly advice you to make the best use of those hours are those are the only ones where you can get help from assistants ! Feel free to do labs with your project teammate or on your own, as preferred. To ask questions to or get help from teaching assistants, fill in the [request form](https://docs.google.com/forms/d/e/1FAIpQLSfe6vB1Q9J9KeZzb76N6CFCBLsSWiTrT8yI7M5slsgOXOBlog/closedform) (*This form accepts submissions only during lab hours*)
+Welcome to the very first lab of MICRO-315. As explained in class, labs take place every Thursday from 8.15am to 1pm, and we strongly advice you to make the best use of those hours are those are the only ones where you can get help from assistants ! Feel free to do labs with your project teammate or on your own, as preferred. To ask questions to or get help from teaching assistants, fill in the [request form](https://docs.google.com/forms/d/e/1FAIpQLSfe6vB1Q9J9KeZzb76N6CFCBLsSWiTrT8yI7M5slsgOXOBlog/closedform) (*This form accepts submissions only during lab hours and and you must log in beforehand on https://www.google.com/ with your EPFL email address*)
 
 - `⏱ Duration`: 3 hours
 ## Goals
@@ -16,7 +16,7 @@ To achieve the main goal, we will go through the following steps:
   - Setup the git repository for your group: [Part 5](#part-5---setting-up-your-group-tps-repository)
   - Getting used to program an e-puck2: use the on board debugger interface for programming and debugging [Part 6](#part-6---tutorial-for-programming-the-epuck2-robot)
   
-To install the IDE and tools used in the labs, click on one the links accordingly to your computer's configuration here below and follow the instructions. If you encounter issues with the installation, please request an assistant to help out using this [link](https://docs.google.com/forms/d/e/1FAIpQLSfe6vB1Q9J9KeZzb76N6CFCBLsSWiTrT8yI7M5slsgOXOBlog/closedform), also available on the [moodle](https://moodle.epfl.ch/course/view.php?id=467).
+To install the IDE and tools used in the labs, click on one the links accordingly to your computer's configuration here below and follow the instructions. If you encounter issues with the installation, please request an assistant to help out using this [link](https://docs.google.com/forms/d/e/1FAIpQLSfe6vB1Q9J9KeZzb76N6CFCBLsSWiTrT8yI7M5slsgOXOBlog/closedform) (*This form accepts submissions only during lab hours and and you must log in beforehand on https://www.google.com/ with your EPFL email address*), also available on the [moodle](https://moodle.epfl.ch/course/view.php?id=467).
 
 - 👉 [🍎 MacOS](https://github.com/EPFL-MICRO-315/TPs-Wiki/wiki/Installing-the-IDE-%F0%9F%8D%8E-MacOS)
 - 👉 [❖ Windows](https://github.com/EPFL-MICRO-315/TPs-Wiki/wiki/Installing-the-IDE-%E2%9D%96-Windows)
