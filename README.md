@@ -1,5 +1,5 @@
 # Introduction
-Welcome to the very first lab of MICRO-315. As explained in class, labs take place every Thursday from 8.15am to 1pm, and we strongly advice you to make the best use of those hours are those are the only ones where you can get help from assistants ! Feel free to do labs with your project teammate or on your own, as preferred. To ask questions to or get help from teaching assistants, fill in the [request form](https://docs.google.com/forms/d/e/1FAIpQLSfe6vB1Q9J9KeZzb76N6CFCBLsSWiTrT8yI7M5slsgOXOBlog/closedform) (*This form accepts submissions only during lab hours*)
+Welcome to the very first lab of MICRO-315. As explained in class, labs take place every Thursday from 8.15am to 1pm, and we strongly advice you to make the best use of those hours are those are the only ones where you can get help from assistants ! Feel free to do labs with your project teammate or on your own, as preferred. To ask questions to or get help from teaching assistants, fill in the [request form](https://docs.google.com/forms/d/e/1FAIpQLSfe6vB1Q9J9KeZzb76N6CFCBLsSWiTrT8yI7M5slsgOXOBlog/closedform) (*This form accepts submissions only during lab hours and and you must log in beforehand on https://www.google.com/ with your EPFL email address*)
 
 - `⏱ Duration`: 3 hours
 ## Goals
@@ -16,7 +16,7 @@ To achieve the main goal, we will go through the following steps:
   - Setup the git repository for your group: [Part 5](#part-5---setting-up-your-group-tps-repository)
   - Getting used to program an e-puck2: use the on board debugger interface for programming and debugging [Part 6](#part-6---tutorial-for-programming-the-epuck2-robot)
   
-To install the IDE and tools used in the labs, click on one the links accordingly to your computer's configuration here below and follow the instructions. If you encounter issues with the installation, please request an assistant to help out using this [link](https://docs.google.com/forms/d/e/1FAIpQLSfe6vB1Q9J9KeZzb76N6CFCBLsSWiTrT8yI7M5slsgOXOBlog/closedform), also available on the [moodle](https://moodle.epfl.ch/course/view.php?id=467).
+To install the IDE and tools used in the labs, click on one the links accordingly to your computer's configuration here below and follow the instructions. If you encounter issues with the installation, please request an assistant to help out using this [link](https://docs.google.com/forms/d/e/1FAIpQLSfe6vB1Q9J9KeZzb76N6CFCBLsSWiTrT8yI7M5slsgOXOBlog/closedform) (*This form accepts submissions only during lab hours and and you must log in beforehand on https://www.google.com/ with your EPFL email address*), also available on the [moodle](https://moodle.epfl.ch/course/view.php?id=467).
 
 - 👉 [🍎 MacOS](https://github.com/EPFL-MICRO-315/TPs-Wiki/wiki/Installing-the-IDE-%F0%9F%8D%8E-MacOS)
 - 👉 [❖ Windows](https://github.com/EPFL-MICRO-315/TPs-Wiki/wiki/Installing-the-IDE-%E2%9D%96-Windows)
@@ -67,7 +67,7 @@ For the purpose of this lab, and to facilitate the programming of the e-puck2 ro
 - 👉 [🛠 Tools](https://github.com/EPFL-MICRO-315/TPs-Wiki/wiki/IDE-%F0%9F%9B%A0-Tools)
 
 # Part 2 - Pyenv
-Some labs will require the execution of python scripts, which you may in fact also be interested to develop for your own miniproject. For this purpose, the labs make use of Pyenv (MacOS and Linux) or Pyenv-win (Windows) to facilitate python executions use without disturbing other python projects you may have on your computer. Please read through the wiki of Pyenv before going on to ensure you understand the basics of this tool.
+Some labs will require the execution of python scripts, which you may in fact also be interested to develop for your own miniproject. For this purpose, the labs make use of Pyenv (MacOS and Linux) or Pyenv-win (Windows) to facilitate python executions use without disturbing other python projects you may have on your computer. Please read through the [wiki of Pyenv](https://github.com/EPFL-MICRO-315/TPs-Wiki/wiki/pyenv-basic) before going on to ensure you understand the basics of this tool.
 
 As explained in the wiki, pyenv not only enables us to switch python versions but also keep python modules specific to one project, rather than system-wide. To test this, open a terminal on VSCode Epuck2 by pressing `Shift + Ctrl + p` (`Shift + Cmd + p` on MacOS) and execute the `Terminal: Create New Terminal` command. Select `TPIntro1` as root for the terminal, and do it all again for `TPIntro2` to end up with two terminal windows.
 
@@ -75,48 +75,106 @@ As explained in the wiki, pyenv not only enables us to switch python versions bu
     <img src="pictures/two-terminals.png" alt="drawing" width="800"/>
 </p>
 
-Now we will create specific environments based on two different python versions for those two folders. In one of the two terminals just created, type the following commands. If you are on **Windows**, do not use the commands `pyenv virtualenv` as no virtual environment is used.
+Now we will create specific environments based on two different python versions for those two folders. In one of the two terminals just created, install 2 Python versions with PyEnv with the following commands:
 
 ```shell
 pyenv install 3.9.1 # intall python 3.9.1 ready to use
 pyenv install 3.10.0 # intall python 3.10.0 ready to use
 
-# Only MacOS and Linux:
-pyenv virtualenv 3.9.1 TPIntro1-env # Create a pyenv environment 
-pyenv virtualenv 3.10.0 TPIntro2-env # Create another pyenv environment 
 ```
 
-Then, in each terminal, execute the following commands by replacing `X` by the folder number (1 or 2).
+Depending of your OS, create 2 pyenv environments:
+
+>[!CAUTION]
+>Under Windows ONLY:
+>```shell
+>pyenv duplicate 3.9.1 TPIntro1-env # Create a pyenv environment
+>pyenv duplicate 3.10.0 TPIntro2-env # Create another pyenv environment
+>
+>```
+
+>[!CAUTION]
+>Under MacOS or Linux ONLY:
+>```shell
+>pyenv virtualenv 3.9.1 TPIntro1-env # Create a pyenv environment
+>pyenv virtualenv 3.10.0 TPIntro2-env # Create another pyenv environment
+>
+>```
+
+In each terminal execute this command by ***replacing `X` by the folder number (1 or 2)*** in order to link a pyenv environment with the folder:
+
+<div class="box"><pre>
+# Replace X by 1 and 2 successively:
+pyenv local TPIntroX-env
+</pre></div>
+
+In each terminal execute this command in order to check the Python version:
 
 ```shell
-#MacOS and Linux (replace X by 1 and 2 successively):
-pyenv local TPIntroX-env # Links the pyenv environment to the folder
-
-# Windows:
-pyenv local 3.9.1 #if in TPIntro1
-pyenv local 3.10.0 #if in TPIntro2
-
-# All platforms:
 python --version # prints out python version
+
 ```
 
-The last command should print `3.9.1` for terminal 1 and `3.10.0` for terminal 2. This shows that pyenv has effectively changed the python version between both terminals, and that you're well able to use different python version in different projects.
-Now, open an external terminal (not internal to VSCode) and travel to your EPuck2_Workplace using `cd`. You should observe the following:
+For the terminal 1 it should print:
+
+<div class="box">output console:<pre>
+Python 3.9.1
+</pre></div>
+
+and for the terminal 2:
+
+<div class="box">output console:<pre>
+Python 3.10.0
+</pre></div>
+
+This shows that pyenv has effectively changed the python version between both terminals, and that you're well able to use different python version in different projects.
+
+Now, open an external terminal (not internal to VSCode) and travel **FROM your EPuck2_Workplace** using `cd`. You should observe the following if you go out your EPuck2_Workplace:
 
 ```shell
-$ cd ..
-$ python --version
-your system wide python
-$ cd EPuck2_Workplace
-$ python --version
-3.11.2
-$ cd TPIntro1
-$ python --version
-3.9.1
-$ cd ../TPIntro2
-$ python --version
-3.10.0
+cd ..
+python --version
+
 ```
+If your system had already Python installed before this TP it will be displayed:
+
+<div class="box">output console:<pre>
+your system wide python
+</pre></div>
+
+else PyEnv will display this message:
+
+<div class="box">output console:<pre>
+No global/local python version has been set yet. Please set the global/local version by typing:
+pyenv global 3.7.4
+pyenv local 3.7.4
+</pre></div>
+
+That's how PyEnv asks to you to define a global or a local environment. 
+
+Then go in again in your EPuck2_Workplace:
+
+```shell
+cd EPuck2_Workplace
+python --version
+
+```
+
+<div class="box">output console:<pre>
+Python 3.11.2
+</pre></div>
+
+then enter in TPIntro1 subfolder:
+
+```shell
+cd TPIntro1
+python --version
+
+```
+
+<div class="box">output console:<pre>
+Python 3.9.1
+</pre></div>
 
 This shows that while travelling between different folders, pyenv in fact dynamically changes the environment (and thus python version) ! All the packages that you install with `pip` (`numpy`, `pandas`, etc.) will be stored independently for all these folders, thus not interferring with other projects you may have.
 
@@ -129,11 +187,15 @@ Read through the following documentation to get acquainted with the e-puck2.
 Now that we're familiar with the IDE and the robot, there's a final step before we can start coding. As a mean to facilitate the reviewing, testing, sharing and saving of code, many developers use a code versioning tool. For this course (i.e labs **and miniproject**), we've decided to make use of `git`, which is the most widely used versioning tool. Please read through the following wiki page to get familiar with the basic concepts behind `git`.
 - 👉 [Introduction to Git](https://github.com/EPFL-MICRO-315/TPs-Wiki/wiki/Git-Introduction-to-Git)
 
-To experiment what we've just read, we'll again play with the two repositories created earlier. In the terminal `TPIntro1`, enter the following and observe what happens after each command in the git tab of the IDE (check out the IDE 👉 [🗔 User Interface](https://github.com/EPFL-MICRO-315/TPs-Wiki/wiki/IDE-%F0%9F%97%94-User-Interface) wiki page if needed).
+To experiment what we've just read, we'll again play with the two repositories created earlier. In the terminal `TPIntro1`, enter the following commands and observe what happens after each command in the git tab of the IDE (check out the IDE 👉 [🗔 User Interface](https://github.com/EPFL-MICRO-315/TPs-Wiki/wiki/IDE-%F0%9F%97%94-User-Interface) wiki page if needed).
 
 ```shell
-$ git init # init git. This will typically create a .git folder locally
-$ git status
+git init # init git. This will typically create a .git folder locally
+git status
+
+```
+
+<div class="box">output console:<pre>
 On branch main
 
 No commits yet
@@ -141,14 +203,50 @@ No commits yet
 Untracked files:
   (use "git add <file>..." to include in what will be committed)
         src/
+        .python-version
 
 nothing added to commit but untracked files present (use "git add" to track)
-$ git add src/ # add all files in src directory to the next commit
-$ git commit -m "first commit" # commit
-$ git status
+</pre></div>
+
+1. The `src` folder and his content are not tracked.
+2. The file of pyenv configration `.python-version` is too untracked but it could be ignored if this pyenv configuration take not part of the project.
+
+The code being part of the project must be added then commited:
+
+```shell
+git add src/ # add all files in src directory to the next commit
+git commit -m "first commit" # commit
+git status
+
+```
+
+<div class="box">output console:<pre>
+On branch main
+Untracked files:
+  (use "git add <file>..." to include in what will 
+be committed)
+        .python-version
+
+nothing added to commit but untracked files present (use "git add" to track)
+
 On branch main
 nothing to commit, working tree clean
+</pre></div>
+
+It remains the local configuration of pyenv which might not be part of the project and could therefore be ignored from version management
+
+```shell
+echo .python_version >> .gitignore
+git add .gitignore # add all files in src directory to the next commit
+git commit -m "Git ignore of .python_version" # commit
+git status
+
 ```
+
+<div class="box">output console:<pre>
+On branch main
+nothing to commit, working tree clean
+</pre></div>
 
 Making a local git versioning of a piece of code can be done either through command line, as you've just done, or through the VSCode git plugin. To try out the latter approach, press `Shift + Ctrl + p` (`Shift + Cmd + p` on MacOS) to open the command palette tool, then execute the `Git: Initialize repository` command by selecting `TPIntro2` when prompted. You may notice that the src/ repository of `TPIntro2` turned green, and if you open the git tab of VSCode, you'll also notice that the green letter `U` appears next to `main.c`. This stands for `Untracked`, and embodies the fact that this file is not yet being tracked for by git: it is new and was never seen before by git (as indeed we just started git). Similarly to command line, press the `+` sign next to the file to add it to the next commit, enter a commit message then press `Commit`. Ensure that the commit is well visible in the git graph extension of VSCode (`4` in the picture below).
 
@@ -164,15 +262,39 @@ First, we'll create a remote repository on your GitHub profile. Anywhere on Gith
     <img src="pictures/github.png" alt="drawing" width="180"/>
 </p>
 
-Click on *New*, name the repository `TPIntro1`, decide whether to make it private or public then click *Create repository* without touching any other option. Now that the repository is created on the remote location (github.com in our case), we need to link our local code to it. Back on the VSCode terminal within `TPIntro1`, enter the following commands.
+Click on *New*, name the repository `TPIntro1`, decide whether to make it private or public then click *Create repository* without touching any other option. Now that the repository is created on the remote location (github.com in our case), we need to link our local code to it. Back on the VSCode terminal within `TPIntro1`, enter the following commands:
 
 ```shell
-$ git remote -v # This command should show nothing as no link with any remote has yet been established
-$ git remote add origin https://github.com/username/TPIntro1.git #replace username with your github username
-$ git remote -v
+git remote -v
+
+```
+
+This command should show nothing as no link with any remote has yet been established.
+
+> [!WARNING]
+> DON'T FORGET to replace `username` with your github username in this following command!!
+
+<div class="box"><pre>
+git remote add origin https://github.com/username/TPIntro1.git
+</pre></div>
+
+then check the result:
+
+```shell
+git remote -v
+
+```
+
+<div class="box">output console:<pre>
 origin  https://github.com/username/TPIntro1.git (fetch)
 origin  https://github.com/username/TPIntro1.git (push)
-$ git push origin --all # push all branches onto the origin remote
+</pre></div>
+
+and push all branches onto the origin remote:
+
+```shell
+git push origin --all
+
 ```
 
 Now we've linked the `TPIntro1` local git project with one remote. You can refresh your browser page of github and confirm that your code is now available on there too. What you'll encounter in the labs is typically that local git projects are linked to several remotes, meaning that you can fetch from, pull from and push to different places in the cloud. To test this behaviour, we'll create a github repository for `TPIntro2` too.
@@ -184,20 +306,39 @@ Publishing local branches is typically easier to do with VSCode. In the git tab 
 
 Now we'll add the newly created remote repository for `TPIntro2` as second remote to our `TPIntro1` local repository. In the `TPIntro1` terminal session, execute the following:
 
+> [!WARNING]
+> DON'T FORGET to replace `username` with your github username in this following command!!
+
+<div class="box"><pre>
+git remote add another_remote https://github.com/username/TPIntro2.git
+</pre></div>
+
+Take a look to ensure the change has been made:
+
 ```shell
-$ git remote add another_remote https://github.com/sirogosig/TPIntro2.git
-$ git remote -v # Take a look to ensure the change has been made
-another_remote  https://github.com/sirogosig/TPIntro2.git (fetch)
-another_remote  https://github.com/sirogosig/TPIntro2.git (push)
-origin  https://github.com/sirogosig/TPIntro1.git (fetch)
-origin  https://github.com/sirogosig/TPIntro1.git (push)
-$ git fetch --all # fetch both remotes to have both indexes locally available
+git remote -v
+
+```
+
+<div class="box">output console:<pre>
+another_remote  https://github.com/username/TPIntro2.git (fetch)
+another_remote  https://github.com/username/TPIntro2.git (push)
+origin  https://github.com/username/TPIntro1.git (fetch)
+origin  https://github.com/username/TPIntro1.git (push)
+</pre></div>
+
+then fetch both remotes to have both indexes locally available:
+
+```shell
+git fetch --all
+
 ```
 
 Now we can fetch and push to either remote, based on what we want to do. For instance, say we want to merge both repositories, we can execute:
 
 ```shell
-$ git merge --allow-unrelated-histories remote2/main
+git merge --allow-unrelated-histories another_remote/main
+
 ```
 
 which will ask us to resolve merge conficts, as indeed the same variables are being renamed in `TPIntro2`. In the confict editor, select to accept the incoming, then resolve the merge confict.
@@ -228,6 +369,7 @@ You should now continue the lab by reading through this README.md, but opened on
 ```shell
 git checkout TPIntro_Exercise # This will create a local version of the TPIntro branch on the reference remote
 git push origin TPIntro_Exercise --set-upstream
+
 ```
 
 # Part 6 - Tutorial for programming the EPuck2 robot
