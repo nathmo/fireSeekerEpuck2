@@ -6,6 +6,10 @@
  * It use it's camera to look for the color of a fire (red) and will rush toward it.
  * the "Fire" are piece of paper that are red. The robot will roll them over to "extinguish" it
  * Once no more "Fire" is detected or that the timeout occure, it will resume it's patrol mode.
+ * 
+ * this file is the entry point and just start the main thread.
+ * 
+ * TODO : start main threads  (Nathann Morand)
  */
 
 #include <stdio.h>

@@ -6,6 +6,8 @@
  * 
  * This file contains the high level logic of the state machine of the robot.
  * 
+ * TODO : implement a thread to modele that state machine and pass the state as semaphore to other thread.  (Nathann Morand)
+ * 
       ┌─────────────────────────┬───────────────────────────────┐
       │                         │                               │
       │                         │                               │
