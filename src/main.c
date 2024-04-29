@@ -20,7 +20,7 @@
 // Main function
 int main(void) {
     // init the peripheral
-
+    
     // start all the threads
     process_IR_proximity_start();
     process_blink_start();
