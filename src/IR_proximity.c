@@ -39,9 +39,9 @@ static THD_FUNCTION(detection_collision_side, arg) {
         }
         // Vérifier si la distance la plus proche est inférieure ou égale au seuil maximal
         if (closest_sensor_index != -1 && MIN_DISTANCE <= MAX_DISTANCE_THRESHOLD) {
-            return -1; // Retourner -1 si une collision est détectée du côté
+            // TODO HERE Retourner l'index du capteur qui touche.
         } else {
-            //
+            // TODO HERE return -1 si une collision est détectée du côté
         }
         chThdSleepMilliseconds(50);
     }

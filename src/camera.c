@@ -13,9 +13,9 @@
 
 #define RED_FACTOR 1.5 // Factor to compare with average of green and blue
 
-static BSEMAPHORE_DECL(sem_capture_image, FALSE);
-static BSEMAPHORE_DECL(sem_capture_image_ready, FALSE);
-static BSEMAPHORE_DECL(sem_process_image_ready, FALSE);
+static BSEMAPHORE_DECL(sem_capture_image, TRUE);
+static BSEMAPHORE_DECL(sem_capture_image_ready, TRUE);
+static BSEMAPHORE_DECL(sem_process_image_ready, TRUE);
 static BSEMAPHORE_DECL(sem_process_image_FireDetected, FALSE);
 
 static THD_WORKING_AREA(WAcapture_image, 512);

@@ -16,8 +16,7 @@
 #include <leds.h> \\fichier donné par le prof
 
 static BSEMAPHORE_DECL(sem_LED_EXTINGUISH, TRUE)
-static BSEMAPHORE_DECL(sem_LED_ROAMING, TRUE)
-
+static BSEMAPHORE_DECL(sem_LED_ROAMING, FALSE)
 
 static THD_WORKING_AREA(WAextinguish_blink_pattern, 64); // allocate memory for the tread extinguish_blink_pattern
 static THD_FUNCTION(extinguish_blink_pattern, arg) {
