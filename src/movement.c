@@ -62,3 +62,12 @@ void orientation_sensor(uint8_t sensor_index) {
     right_motor_set_speed(0);
 }
 
+void avancer(int16_t vitesse) {
+    motors_init();
+
+    left_motor_set_pos(0);
+    right_motor_set_pos(0);
+
+    left_motor_set_speed(vitesse);
+    right_motor_set_speed(vitesse);
+}
