@@ -1,12 +1,11 @@
-# Fire Seeker Robot
-
-### Introduction
-This robot aim to track "fire" (sheet of paper of red color) and roll over them to extinguish them.
-It will also explore the room and bounce of wall.
-### Code function overview
-
-This is the general overview of the state machine.
-The function will be explained below 
+/*
+ * Author: Nathann Morand + Felipe Ramirez
+ * Description: Fire Seeker Robot
+ * 
+ * File : behaviour.c
+ * 
+ * This file contains the high level logic of the state machine of the robot.
+ * 
       ┌─────────────────────────┬───────────────────────────────┐
       │                         │                               │
       │                         │                               │
@@ -69,5 +68,4 @@ True │       │ False      │           │  ┌──┬──────�
 │ the obstacle      ├───────────────────────────────────────────┘
 │                   │                                            
 └───────────────────┘                                            
-
-### File structure
+*/

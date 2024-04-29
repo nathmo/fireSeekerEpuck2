@@ -5,7 +5,7 @@
  * This robot will patrol randomly an area while bouncing of obstable.
  * It use it's camera to look for the color of a fire (red) and will rush toward it.
  * the "Fire" are piece of paper that are red. The robot will roll them over to "extinguish" it
- * Once no more "Fire" is detected, it will resume it's patrol mode.
+ * Once no more "Fire" is detected or that the timeout occure, it will resume it's patrol mode.
  */
 
 #include <stdio.h>
