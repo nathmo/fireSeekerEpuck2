@@ -19,7 +19,7 @@
 int8_t detection_collision_side(void) {
     const uint8_t NUM_SENSORS = 4;
     const uint16_t MIN_DISTANCE = 800; // Quand on est au plus proche du capteur
-    const uint16_t MAX_DISTANCE_THRESHOLD = 100;
+    const uint16_t MAX_DISTANCE_THRESHOLD = 50; // Se trouve "loin" de l'obstacle
 
     const uint8_t sensor_indices[NUM_SENSORS] = {1, 2, 7, 8};
 
