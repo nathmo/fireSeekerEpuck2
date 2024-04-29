@@ -62,6 +62,35 @@ void orientation_sensor(uint8_t sensor_index) {
     right_motor_set_speed(0);
 }
 
+void turn_specific_angle(int16_t angle_degrees) {
+
+    motors_init();
+    int16_t angle_steps = DEGREES_TO_STEPS(angle_degrees);
+
+    // Définition de la vitesse de rotation
+    int16_t vitesse_rotation = 300; 
+
+    // Détermination du sens de rotation en fonction du signe de l'angle
+    int8_t rotation_direction;
+    if (angle_degrees >= 0) {
+        rotation_direction = 1; // Sens horaire pour un angle positif
+    } else {
+        rotation_direction = -1; // Sens anti-horaire pour un angle négatif
+    }
+
+    // Réglage de la vitesse des moteurs pour tourner
+    left_motor_set_speed(rotation_direction * vitesse_rotation);
+    right_motor_set_speed(-rotation_direction * vitesse_rotation);
+
+    // Attente que le robot atteigne l'angle de rotation désiré
+ while ((rotation_direction * left_motor_get_pos() < rotation_direction * angle_steps)
+           && (-rotation_direction * right_motor_get_pos() < rotation_direction * angle_steps));
+
+    left_motor_set_speed(0);
+    right_motor_set_speed(0);
+}
+
+
 void avancer(int16_t vitesse) {
     motors_init();
 
