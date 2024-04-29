@@ -77,9 +77,56 @@ static THD_WORKING_AREA(WAstate_machine, 64); // allocate memory for the tread e
 static THD_FUNCTION(state_machine, arg) {
     chRegSetThreadName(__FUNCTION__);
     (void)arg;
-    while(TRUE){
+            // Initial state
+    int state = 0;
 
-        chThdSleepMilliseconds(10);
+    // State machine loop
+    while (TRUE) {
+        // Switch-case statement to handle states
+        switch(state) {
+            case 0:
+                // Move forward slow
+
+                state = 0; // if no obstacle detected
+                state = 1; // if an obstacle is detected
+                break;
+            case 1:
+                // turn toward obstacle
+                state = 2;
+                break;
+            case 2:
+                // use camera to check if its a fire
+                state = 3; // there is no fire
+                state = 4; // if there is a fire
+                break;
+            case 3:
+                // turn away from obstacle
+                state = 0; // and return to move foward slow
+                break;
+            case 4:
+                //enable light and sound and rush forward
+                // also start the timeout process
+                state = 0; // if the fire was extinguished (no more obstacle)
+                state = 5; // if there is still an obstacle -> state to check timeout
+                break;
+            case 5:
+                //increment timeout counter.
+                state = 4; // if no timeout we go back to extinguishing the fire
+                state = 3; // if timeout, we turn away from obstacle
+                break;
+            case 6:
+                
+                state = 7;
+                break;
+            case 7:
+                
+                state = 0;  // Go back to the initial state
+                break;
+            default:
+                state = 0;  // Go back to the initial state
+                break;
+        }
+        chThdSleepMilliseconds(2);
     }
 }
 

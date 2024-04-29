@@ -15,6 +15,14 @@
 #include <stdint.h>
 #include "sensors/proximity.h"
 
+static BSEMAPHORE_DECL(sem_detection_collision_side_frontR, FALSE);
+static BSEMAPHORE_DECL(sem_detection_collision_side_frontL, FALSE);
+static BSEMAPHORE_DECL(sem_detection_collision_side_R, FALSE);
+static BSEMAPHORE_DECL(sem_detection_collision_side_L, FALSE);
+static BSEMAPHORE_DECL(sem_detection_collision_NO, TRUE);
+
+chBSemSignal(&sem_process_image_FireDetected);
+
 static THD_WORKING_AREA(WAdetection_collision_side, 64); // allocate memory for the tread detection_collision_side
 static THD_FUNCTION(detection_collision_side, arg) {
     chRegSetThreadName(__FUNCTION__);
@@ -32,21 +40,32 @@ static THD_FUNCTION(detection_collision_side, arg) {
             uint16_t current_distance = get_proximity(sensor_index);
 
             // Mettre à jour le capteur le plus proche si la distance est inférieure ou égale à MIN_DISTANCE
-            if (current_distance <= MIN_DISTANCE) {
+            if (current_distance <= MIN_DISTANCE && current_distance <= MAX_DISTANCE_THRESHOLD) {
                 MIN_DISTANCE = current_distance;
                 closest_sensor_index = sensor_index;
             }
         }
-        // Vérifier si la distance la plus proche est inférieure ou égale au seuil maximal
-        if (closest_sensor_index != -1 && MIN_DISTANCE <= MAX_DISTANCE_THRESHOLD) {
-            // TODO HERE Retourner l'index du capteur qui touche.
-        } else {
-            // TODO HERE return -1 si une collision est détectée du côté
+        // Retourner l'index du capteur qui touche.
+        switch(closest_sensor_index) {
+            case 1:
+                chBSemSignal(&sem_detection_collision_side_frontR) 
+                break;
+            case 2:
+                chBSemSignal(&sem_detection_collision_side_R)
+                break;
+            case 7:
+                chBSemSignal(&sem_detection_collision_side_L)
+                break;
+            case 8:
+                chBSemSignal(&sem_detection_collision_side_frontL) 
+                break;
+            default:
+            chBSemSignal(&sem_detection_collision_NO) // aucune collision est détectée
         }
-        chThdSleepMilliseconds(50);
+        chThdSleepMilliseconds(10);
     }
 }
 
 void process_IR_proximity_start(void){
-    chThdCreateStatic(WAroaming_blink_pattern, sizeof(WAroaming_blink_pattern), NORMALPRIO, roaming_blink_pattern, NULL);
+    chThdCreateStatic(WAroaming_blink_pattern, sizeof(WAroaming_blink_pattern), HIGHPRIO, roaming_blink_pattern, NULL);
 }

@@ -73,6 +73,6 @@ static THD_FUNCTION(roaming_blink_pattern, arg) {
 }
 
 void process_blink_start(void){
-    chThdCreateStatic(WAroaming_blink_pattern, sizeof(WAroaming_blink_pattern), NORMALPRIO, roaming_blink_pattern, NULL);
-    chThdCreateStatic(WAextinguish_blink_pattern, sizeof(WAextinguish_blink_pattern), NORMALPRIO, extinguish_blink_pattern, NULL);
+    chThdCreateStatic(WAroaming_blink_pattern, sizeof(WAroaming_blink_pattern), LOWPRIO, roaming_blink_pattern, NULL);
+    chThdCreateStatic(WAextinguish_blink_pattern, sizeof(WAextinguish_blink_pattern), LOWPRIO, extinguish_blink_pattern, NULL);
 }
