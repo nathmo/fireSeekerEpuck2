@@ -9,7 +9,6 @@
  * 
  * TODO : create a function to play the lightshow when extinguishing a fire (Felipe Ramirez)
  * TODO : create a function that play the lightshow when moving around (Felipe Ramirez)
- * TODO : create a thread that check for the semaphore that enable the fire light otherwise stay in the other pattern (Felipe Ramirez)
  * 
  */
 
