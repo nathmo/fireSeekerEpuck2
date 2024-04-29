@@ -1,23 +1,19 @@
-#include <stm32f4xx.h>
-#include <system_clock_config.h>
-#include "gpio.h"
-#include "main.h"
+/*
+ * Author: Nathann Morand + Felipe Ramirez
+ * Description: Fire Seeker Robot
+ * 
+ * This robot will patrol randomly an area while bouncing of obstable.
+ * It use it's camera to look for the color of a fire (red) and will rush toward it.
+ * the "Fire" are piece of paper that are red. The robot will roll them over to "extinguish" it
+ * Once no more "Fire" is detected, it will resume it's patrol mode.
+ */
 
-// Init function required by __libc_init_array df
-void _init(void) {}
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <math.h>
 
-int main(void)
-{
-    SystemClock_Config();
-
-    // Enable GPIOD peripheral clock
-    RCC->AHB1ENR    |= RCC_AHB1ENR_GPIODEN;
-
-    // LED used init
-    gpio_config_output_opendrain(LED_USED);
-    gpio_clear(LED_USED);
-
-    while (1) {
-        ;
-    }
+// Main function
+int main(void) {
+    
 }
