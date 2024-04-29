@@ -12,3 +12,4 @@
  * TODO : create a function that advance fast (Felipe Ramirez)
  * TODO : create a function that adance slowly (Felipe Ramirez)
  */
+

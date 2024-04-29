@@ -15,27 +15,33 @@
 #include <stdint.h>
 #include "sensors/proximity.h"
 
-uint8_t collision_detection_side(void) {
+// Fonction pour détecter une collision du côté
+int8_t detection_collision_side(void) {
     const uint8_t NUM_SENSORS = 4;
-    const uint16_t MAX_DISTANCE = 800;
+    const uint16_t MIN_DISTANCE = 800; // Quand on est au plus proche du capteur
+    const uint16_t MAX_DISTANCE_THRESHOLD = 50; // Se trouve "loin" de l'obstacle
 
-    // Tableau contenant les indices des capteurs à utiliser (1, 2, 7, 8)
     const uint8_t sensor_indices[NUM_SENSORS] = {1, 2, 7, 8};
 
     uint16_t sensor_distances[NUM_SENSORS];
-    uint8_t closest_sensor_index = 0; // Initialisation avec le premier capteur
+    int8_t closest_sensor_index = -1; // Initialisation avec une valeur indiquant aucune détection
 
     // Lire les distances des capteurs spécifiés
     for (uint8_t i = 0; i < NUM_SENSORS; i++) {
         uint8_t sensor_index = sensor_indices[i];
         uint16_t current_distance = get_proximity(sensor_index);
 
-        // Vérifier si la distance est plus proche que la distance maximale actuelle
-        if (current_distance < MAX_DISTANCE) {
-            MAX_DISTANCE = current_distance;
+        // Mettre à jour le capteur le plus proche si la distance est inférieure ou égale à MIN_DISTANCE
+        if (current_distance <= MIN_DISTANCE) {
+            MIN_DISTANCE = current_distance;
             closest_sensor_index = sensor_index;
         }
     }
 
-    return closest_sensor_index;
+    // Vérifier si la distance la plus proche est inférieure ou égale au seuil maximal
+    if (closest_sensor_index != -1 && MIN_DISTANCE <= MAX_DISTANCE_THRESHOLD) {
+        return -1; // Retourner -1 si une collision est détectée du côté
+    }
+
+    return closest_sensor_index; // Retourner l'indice du capteur le plus proche
 }
