@@ -100,3 +100,8 @@ void avancer(int16_t vitesse) {
     left_motor_set_speed(vitesse);
     right_motor_set_speed(vitesse);
 }
+
+void stop_engines() {
+    left_motor_set_speed(0);
+    right_motor_set_speed(0);
+}
