@@ -47,7 +47,7 @@ True │       │ False      │           │  ┌──┬──────�
           ▼                           │            │  │         │
 ┌───────────────────┐       ┌─────────┴─────────┐  │  │         │
 │                   │       │ enable light      │  │  │         │
-│   get an immage   │       │ and sound effect  │◄─┘  │         │
+│   get an image    │       │ and sound effect  │◄─┘  │         │
 │                   │       │ and roll fast fwd │     │         │
 └─────────┬─────────┘       └───────────────────┘     │         │
           │                           ▲               │         │
@@ -71,3 +71,18 @@ True │       │ False      │           │  ┌──┬──────�
 │                   │                                            
 └───────────────────┘                                            
 */
+
+
+static THD_WORKING_AREA(WAstate_machine, 64); // allocate memory for the tread extinguish_blink_pattern
+static THD_FUNCTION(state_machine, arg) {
+    chRegSetThreadName(__FUNCTION__);
+    (void)arg;
+    while(TRUE){
+
+        chThdSleepMilliseconds(10);
+    }
+}
+
+void process_state_machine_start(void){
+    chThdCreateStatic(WAstate_machine, sizeof(WAstate_machine), NORMALPRIO, state_machine, NULL);
+}

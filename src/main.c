@@ -19,5 +19,16 @@
 
 // Main function
 int main(void) {
+    // init the peripheral
+
+    // start all the threads
+    process_IR_proximity_start();
+    process_blink_start();
+    process_camera_start();
+    process_state_machine_start();
     
+    // do nothing. the thread will do the work (check behaviour file to understand)
+    while(1) {
+		chThdSleepMilliseconds(1000);
+	}
 }

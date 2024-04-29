@@ -22,24 +22,25 @@ static THD_WORKING_AREA(WAcapture_image, 512);
 static THD_FUNCTION(capture_image, arg) {
     chRegSetThreadName(__FUNCTION__);
     (void)arg;
+    while(TRUE){
+        //waits that we are ready to capture an image
+        sem_capture_image();
 
-    //waits that we are ready to capture an image
-    sem_capture_image();
+        // the following code snippet come from TP 4
+        //Takes pixels 0 to IMAGE_BUFFER_SIZE of the lines USED_LINE and USED_LINE + 1 (minimum 2 lines because reasons)
+        po8030_advanced_config(FORMAT_RGB565, 0, USED_LINE, IMAGE_BUFFER_SIZE, 2, SUBSAMPLING_X1, SUBSAMPLING_X1);
+        dcmi_enable_double_buffering();
+        dcmi_set_capture_mode(CAPTURE_ONE_SHOT);
+        dcmi_prepare();
 
-    // the following code snippet come from TP 4
-	//Takes pixels 0 to IMAGE_BUFFER_SIZE of the lines USED_LINE and USED_LINE + 1 (minimum 2 lines because reasons)
-	po8030_advanced_config(FORMAT_RGB565, 0, USED_LINE, IMAGE_BUFFER_SIZE, 2, SUBSAMPLING_X1, SUBSAMPLING_X1);
-	dcmi_enable_double_buffering();
-	dcmi_set_capture_mode(CAPTURE_ONE_SHOT);
-	dcmi_prepare();
-
-    while(1){
-        //starts a capture
-		dcmi_capture_start();
-		//waits for the capture to be done
-		wait_image_ready();
-		//signals an image has been captured
-		chBSemSignal(&sem_capture_image_ready);
+        while(1){
+            //starts a capture
+            dcmi_capture_start();
+            //waits for the capture to be done
+            wait_image_ready();
+            //signals an image has been captured
+            chBSemSignal(&sem_capture_image_ready);
+        }
     }
 }
 
@@ -57,7 +58,7 @@ static THD_FUNCTION(process_image, arg) {
     uint32_t total_green = 0;
     uint32_t total_blue = 0;
 
-    while(true){
+    while(TRUE){
         //waits for the image to be ready
         sem_capture_image_ready();
 
@@ -98,5 +99,11 @@ static THD_FUNCTION(process_image, arg) {
             // Signal that fire is detected
             chBSemSignal(&sem_process_image_FireDetected);
         }
+        chBSemSignal(&sem_process_image_ready);
     }
+}
+
+void process_camera_start(void){
+    chThdCreateStatic(WAcapture_image, sizeof(WAcapture_image), NORMALPRIO, capture_image, NULL);
+    chThdCreateStatic(WAprocess_image, sizeof(WAprocess_image), NORMALPRIO, process_image, NULL);
 }
