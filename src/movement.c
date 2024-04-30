@@ -13,13 +13,14 @@
  * TODO : create a function that adance slowly (Felipe Ramirez)
  */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <math.h>
 #include <ch.h>
 #include <hal.h>
+#include <math.h>
+#include <usbcfg.h>
+#include <chprintf.h>
 #include <motors.h>
+
+
 
 #define DEGREES_TO_STEPS(angle_degrees) ((angle_degrees * 340) / 90) // Définition de la constante pour la conversion d'angle en steps
 

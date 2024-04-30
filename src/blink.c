@@ -11,9 +11,13 @@
  * TODO : create a function that play the lightshow when moving around (Felipe Ramirez)
  * 
  */
-
+#include <ch.h>
+#include <hal.h>
+#include <math.h>
+#include <usbcfg.h>
+#include <chprintf.h>
 #include <blink.h>
-#include <leds.h> \\fichier donné par le prof
+#include <leds.h>
 
 static BSEMAPHORE_DECL(sem_LED_EXTINGUISH, TRUE)
 static BSEMAPHORE_DECL(sem_LED_ROAMING, FALSE)

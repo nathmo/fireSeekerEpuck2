@@ -11,12 +11,34 @@
  * TODO : check image size and optimise memory  (Nathann Morand)
  */
 
+#include <ch.h>
+#include <hal.h>
+#include <chprintf.h>
+#include <usbcfg.h>
+#include <camera/po8030.h>
 #define RED_FACTOR 1.5 // Factor to compare with average of green and blue
+
+// Define the struct with a single bit flag
+struct Camera_flag {
+    uint8_t is_fire_detected : 1;
+};
+
+// Variable of type struct MyStruct
+struct Camera_flag camera_flag;
+
+// Setter function
+void setIsFireDetected(uint8_t value) {
+    camera_flag.is_fire_detected = value;
+}
+
+// Getter function
+uint8_t getIsFireDetected() {
+    return camera_flag.is_fire_detected;
+}
 
 static BSEMAPHORE_DECL(sem_capture_image, TRUE);
 static BSEMAPHORE_DECL(sem_capture_image_ready, TRUE);
 static BSEMAPHORE_DECL(sem_process_image_ready, TRUE);
-static BSEMAPHORE_DECL(sem_process_image_FireDetected, FALSE);
 
 static THD_WORKING_AREA(WAcapture_image, 512);
 static THD_FUNCTION(capture_image, arg) {
@@ -50,13 +72,13 @@ static THD_FUNCTION(process_image, arg) {
     (void)arg;
 
     // declare the space for storing the image
-    uint8_t *img_buff_ptr;
+    uint16_t *img_buff_ptr;
     uint8_t image_red[IMAGE_BUFFER_SIZE] = {0};
     uint8_t image_green[IMAGE_BUFFER_SIZE] = {0};
     uint8_t image_blue[IMAGE_BUFFER_SIZE] = {0};
-    uint32_t total_red = 0;
-    uint32_t total_green = 0;
-    uint32_t total_blue = 0;
+    uint16_t total_red = 0;
+    uint16_t total_green = 0;
+    uint16_t total_blue = 0;
 
     while(TRUE){
         //waits for the image to be ready
@@ -97,7 +119,9 @@ static THD_FUNCTION(process_image, arg) {
         // Check if the red frame value is at least RED_FACTOR times bigger than the average of green and blue
         if ((double)total_red >= RED_FACTOR * (double)average_green_blue) {
             // Signal that fire is detected
-            chBSemSignal(&sem_process_image_FireDetected);
+            setIsFireDetected(true);
+        } else {
+            setIsFireDetected(false);
         }
         chBSemSignal(&sem_process_image_ready);
     }

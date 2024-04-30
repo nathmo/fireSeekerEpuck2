@@ -12,16 +12,68 @@
  * (Felipe Ramirez)
  */
 
+#include <ch.h>
+#include <hal.h>
+#include <math.h>
+#include <usbcfg.h>
+#include <chprintf.h>
 #include <stdint.h>
 #include "sensors/proximity.h"
 
-static BSEMAPHORE_DECL(sem_detection_collision_side_frontR, FALSE);
-static BSEMAPHORE_DECL(sem_detection_collision_side_frontL, FALSE);
-static BSEMAPHORE_DECL(sem_detection_collision_side_R, FALSE);
-static BSEMAPHORE_DECL(sem_detection_collision_side_L, FALSE);
-static BSEMAPHORE_DECL(sem_detection_collision_NO, TRUE);
 
-chBSemSignal(&sem_process_image_FireDetected);
+// Define the struct with 5 boolean flags
+struct DetectionFlags {
+    bool frontRight : 1;
+    bool frontLeft : 1;
+    bool sideRight : 1;
+    bool sideLeft : 1;
+    bool noObstacleDetected : 1;
+};
+
+// Global variable of type struct DetectionFlags
+struct DetectionFlags detectionFlags;
+
+// Setter functions for each flag
+void setFrontRight(bool value) {
+    detectionFlags.frontRight = value;
+}
+
+void setFrontLeft(bool value) {
+    detectionFlags.frontLeft = value;
+}
+
+void setSideRight(bool value) {
+    detectionFlags.sideRight = value;
+}
+
+void setSideLeft(bool value) {
+    detectionFlags.sideLeft = value;
+}
+
+void setNoObstacleDetected(bool value) {
+    detectionFlags.noObstacleDetected = value;
+}
+
+// Getter functions for each flag
+bool getFrontRight() {
+    return detectionFlags.frontRight;
+}
+
+bool getFrontLeft() {
+    return detectionFlags.frontLeft;
+}
+
+bool getSideRight() {
+    return detectionFlags.sideRight;
+}
+
+bool getSideLeft() {
+    return detectionFlags.sideLeft;
+}
+
+bool getNoObstacleDetected() {
+    return detectionFlags.noObstacleDetected;
+}
 
 static THD_WORKING_AREA(WAdetection_collision_side, 64); // allocate memory for the tread detection_collision_side
 static THD_FUNCTION(detection_collision_side, arg) {
@@ -32,7 +84,7 @@ static THD_FUNCTION(detection_collision_side, arg) {
     const uint16_t MAX_DISTANCE_THRESHOLD = 50; // Se trouve "loin" de l'obstacle
     const uint8_t sensor_indices[NUM_SENSORS] = {1, 2, 7, 8};
 
-    while(TRUE){
+    while(true){
         int8_t closest_sensor_index = -1; // Initialisation avec une valeur indiquant aucune détection
         // Lire les distances des capteurs spécifiés
         for (uint8_t i = 0; i < NUM_SENSORS; i++) {
@@ -48,19 +100,39 @@ static THD_FUNCTION(detection_collision_side, arg) {
         // Retourner l'index du capteur qui touche.
         switch(closest_sensor_index) {
             case 1:
-                chBSemSignal(&sem_detection_collision_side_frontR) 
+                setFrontRight(true);
+                setFrontLeft(false);
+                setSideRight(false);
+                setSideLeft(false);
+                setNoObstacleDetected(false);
                 break;
             case 2:
-                chBSemSignal(&sem_detection_collision_side_R)
+                setFrontRight(false);
+                setFrontLeft(false);
+                setSideRight(true);
+                setSideLeft(false);
+                setNoObstacleDetected(false);
                 break;
             case 7:
-                chBSemSignal(&sem_detection_collision_side_L)
+                setFrontRight(false);
+                setFrontLeft(false);
+                setSideRight(false);
+                setSideLeft(true);
+                setNoObstacleDetected(false);
                 break;
             case 8:
-                chBSemSignal(&sem_detection_collision_side_frontL) 
+                setFrontRight(false);
+                setFrontLeft(true);
+                setSideRight(false);
+                setSideLeft(false);
+                setNoObstacleDetected(false);
                 break;
             default:
-            chBSemSignal(&sem_detection_collision_NO) // aucune collision est détectée
+                setFrontRight(false);
+                setFrontLeft(false);
+                setSideRight(false);
+                setSideLeft(false);
+                setNoObstacleDetected(true); // aucune collision est détectée
         }
         chThdSleepMilliseconds(10);
     }

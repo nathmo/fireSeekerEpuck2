@@ -17,10 +17,25 @@
 #include <string.h>
 #include <math.h>
 
+messagebus_t bus;
+MUTEX_DECL(bus_lock);
+CONDVAR_DECL(bus_condvar);
+
 // Main function
 int main(void) {
+    messagebus_init(&bus, &bus_lock, &bus_condvar);
+
     // init the peripheral
-    
+    halInit();
+    chSysInit();
+    //starts the camera
+    dcmi_start();
+	po8030_start();
+	//inits the motors
+	motors_init();
+	//starts RGB LEDS and User button managment
+	spi_comm_start();
+
     // start all the threads
     process_IR_proximity_start();
     process_blink_start();
@@ -31,4 +46,12 @@ int main(void) {
     while(1) {
 		chThdSleepMilliseconds(1000);
 	}
+}
+
+#define STACK_CHK_GUARD 0xe2dee396
+uintptr_t __stack_chk_guard = STACK_CHK_GUARD;
+
+void __stack_chk_fail(void)
+{
+    chSysHalt("Stack smashing detected");
 }
