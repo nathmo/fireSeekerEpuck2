@@ -84,7 +84,7 @@ void turn_specific_angle(int16_t angle_degrees) {
     right_motor_set_speed(-rotation_direction * vitesse_rotation);
 
     // Attente que le robot atteigne l'angle de rotation désiré
- while ((rotation_direction * left_motor_get_pos() < rotation_direction * angle_steps)
+    while ((rotation_direction * left_motor_get_pos() < rotation_direction * angle_steps)
            && (-rotation_direction * right_motor_get_pos() < rotation_direction * angle_steps));
 
     left_motor_set_speed(0);
