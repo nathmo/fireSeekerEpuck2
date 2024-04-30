@@ -76,6 +76,8 @@ True │       │ False      │           │  ┌──┬──────�
 #include <hal.h>
 #include <chprintf.h>
 #include <usbcfg.h>
+#include <camera.h>
+#include <behaviour.h>
 
 static THD_WORKING_AREA(WAstate_machine, 64); // allocate memory for the tread extinguish_blink_pattern
 static THD_FUNCTION(state_machine, arg) {
@@ -90,32 +92,32 @@ static THD_FUNCTION(state_machine, arg) {
         switch(state) {
             case 0:
                 // Move forward slow
-                if (chBSemWaitTimeout(&sem_detection_collision_NO, TIME_IMMEDIATE) == MSG_OK) {
-                    // TODO call stop motor
-                    state = 1; // if there is a collision, stop motor
-                } else {
+                if(getNoObstacleDetected()) {
                     // TODO call start motor
-                    state = 0; // if there is no collision we stay here
+                    state = 0; // if there is no collision, we keep the course motor
+                } else {
+                    // TODO call stop motor
+                    state = 1; // if there is a collision, we stop the motor
                 }
                 break;
             case 1:
                 // turn toward obstacle
-                if (chBSemWaitTimeout(&sem_detection_collision_side_frontR, TIME_IMMEDIATE) == MSG_OK) {
+                if (getFrontRight()) {
                     orientation_sensor(1);
-                } else if (chBSemWaitTimeout(&sem_detection_collision_side_frontL, TIME_IMMEDIATE) == MSG_OK){
+                } else if (getFrontLeft()){
                     orientation_sensor(8);
-                } else if (chBSemWaitTimeout(&sem_detection_collision_side_R, TIME_IMMEDIATE) == MSG_OK){
+                } else if (getSideRight()){
                     orientation_sensor(2);
-                } else if (chBSemWaitTimeout(&sem_detection_collision_side_L, TIME_IMMEDIATE) == MSG_OK){
+                } else if (getSideLeft()){
                     orientation_sensor(7);
                 }
                 state = 2;
                 break;
             case 2:
                 // use camera to check if its a fire
-                chBSemSignal(&sem_capture_image) // start the image processing workflow
-                sem_process_image_ready(); // wait that the workflow is done
-                if getIsFireDetected(){
+                chBSemSignal(&sem_capture_image); // start the image processing workflow
+                chBSemWait(&sem_process_image_ready); // wait that the workflow is done
+                if (getIsFireDetected()){
                     state = 4; // there is a fire
                 } else {
                     state = 3; // there is no fire

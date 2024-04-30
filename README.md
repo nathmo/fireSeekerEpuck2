@@ -2,7 +2,7 @@
 
 ### Introduction
 This robot aim to track "fire" (sheet of paper of red color) and roll over them to extinguish them.
-It will also explore the room and bounce of wall.
+It will also "explore" the room and bounce of wall.
 ### Code function overview
 
 This is the general overview of the state machine.

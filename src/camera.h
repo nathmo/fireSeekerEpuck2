@@ -18,13 +18,13 @@
 #include <camera/dcmi_camera.h>
 
 // Définition de la constante pour le facteur de comparaison avec la moyenne de vert et bleu
-#define RED_FACTOR 1.5
+#define RED_FACTOR 1.5 // Factor to compare with average of green and blue
+#define IMAGE_BUFFER_SIZE 5000 // number of pixel we store
 
 // Déclarations des sémaphores pour la capture et le traitement de l'image
 extern BSEMAPHORE_DECL(sem_capture_image, TRUE);
 extern BSEMAPHORE_DECL(sem_capture_image_ready, TRUE);
 extern BSEMAPHORE_DECL(sem_process_image_ready, TRUE);
-extern BSEMAPHORE_DECL(sem_process_image_FireDetected, FALSE);
 
 // Fonction pour démarrer le traitement de la caméra
 void process_camera_start(void);

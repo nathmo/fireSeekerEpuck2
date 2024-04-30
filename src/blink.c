@@ -19,9 +19,6 @@
 #include <blink.h>
 #include <leds.h>
 
-static BSEMAPHORE_DECL(sem_LED_EXTINGUISH, TRUE)
-static BSEMAPHORE_DECL(sem_LED_ROAMING, FALSE)
-
 static THD_WORKING_AREA(WAextinguish_blink_pattern, 64); // allocate memory for the tread extinguish_blink_pattern
 static THD_FUNCTION(extinguish_blink_pattern, arg) {
     chRegSetThreadName(__FUNCTION__);
@@ -54,10 +51,10 @@ static THD_FUNCTION(roaming_blink_pattern, arg) {
 
         while (intensity >= 0 && intensity <= 50) {
             // Allumer les LED rouges avec l'intensité actuelle
-            toggle_rgb_led(LED2, RED_LED, intensity)
-            toggle_rgb_led(LED4, RED_LED, intensity)
-            toggle_rgb_led(LED6, RED_LED, intensity)
-            toggle_rgb_led(LED8, RED_LED, intensity)
+            toggle_rgb_led(LED2, RED_LED, intensity);
+            toggle_rgb_led(LED4, RED_LED, intensity);
+            toggle_rgb_led(LED6, RED_LED, intensity);
+            toggle_rgb_led(LED8, RED_LED, intensity);
 
             // Attendre un court laps de temps pour observer le changement progressif
             chThdSleepMilliseconds(10);

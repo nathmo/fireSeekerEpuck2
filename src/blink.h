@@ -16,8 +16,8 @@
 #include <leds.h> // Fichier donné par le professeur
 
 // Déclarations des sémaphores pour les motifs de clignotement
-extern BSEMAPHORE_DECL(sem_LED_EXTINGUISH, TRUE);
-extern BSEMAPHORE_DECL(sem_LED_ROAMING, FALSE);
+extern BSEMAPHORE_DECL(sem_LED_EXTINGUISH, true);
+extern BSEMAPHORE_DECL(sem_LED_ROAMING, false);
 
 // Fonction pour démarrer le motif de clignotement de patrouille
 void process_blink_start(void);
