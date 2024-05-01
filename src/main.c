@@ -12,38 +12,37 @@
  * TODO : start main threads  (Nathann Morand)
  */
 
-#include <ch.h>
-#include <hal.h>
-#include <chprintf.h>
-#include <usbcfg.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
+#include <ch.h>
+#include <hal.h>
 #include <memory_protection.h>
-#include <camera/po8030.h>
+#include <usbcfg.h>
 #include <motors.h>
-#include <behaviour.h>
-#include <sensors/proximity.h>
-#include <messagebus.h>
+#include <camera/po8030.h>
+#include <chprintf.h>
+#include <spi_comm.h>
+#include <stdbool.h>
 
-messagebus_t bus;
-MUTEX_DECL(bus_lock);
-CONDVAR_DECL(bus_condvar);
+#include <main.h>
+#include <IR_proximity.h>
+#include <camera.h>
+#include <blink.h>
+#include <behaviour.h>
 
 // Main function
 int main(void) {
-    messagebus_init(&bus, &bus_lock, &bus_condvar);
-    // init the peripheral
     halInit();
     chSysInit();
+    mpu_init();
     //starts the camera
     dcmi_start();
 	po8030_start();
 	//inits the motors
 	motors_init();
-    //start IR promity sensors
-    proximity_start();
+
 	//starts RGB LEDS and User button managment
 	spi_comm_start();
 

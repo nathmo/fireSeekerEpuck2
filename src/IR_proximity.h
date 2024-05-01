@@ -15,14 +15,17 @@
 #include <hal.h>
 #include <sensors/proximity.h>
 
-// Déclaration des sémaphores pour la détection de collision par les capteurs IR
-extern BSEMAPHORE_DECL(sem_detection_collision_side_frontR, FALSE);
-extern BSEMAPHORE_DECL(sem_detection_collision_side_frontL, FALSE);
-extern BSEMAPHORE_DECL(sem_detection_collision_side_R, FALSE);
-extern BSEMAPHORE_DECL(sem_detection_collision_side_L, FALSE);
-extern BSEMAPHORE_DECL(sem_detection_collision_NO, TRUE);
-
+void setFrontRight(bool value);
+void setFrontLeft(bool value);
+void setSideRight(bool value);
+void setSideLeft(bool value);
+void setNoObstacleDetected(bool value);
+bool getFrontRight(void);
+bool getFrontLeft(void);
+bool getSideRight(void);
+bool getSideLeft(void);
+bool getNoObstacleDetected(void);
 // Fonction pour démarrer le traitement de la proximité IR
 void process_IR_proximity_start(void);
 
-#endif /* IR_PROXIMITY_H */
+#endif

@@ -6,8 +6,9 @@
 #include <chprintf.h>
 #include <usbcfg.h>
 #include <camera.h>
-#include <behaviour.h>
+#include <camera/po8030.h>
+#include <camera/dcmi_camera.h>
 
 void process_state_machine_start(void);
 
-#endif BEHAVIOUR_H
+#endif

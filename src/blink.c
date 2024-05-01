@@ -19,6 +19,10 @@
 #include <blink.h>
 #include <leds.h>
 
+extern BSEMAPHORE_DECL(sem_LED_EXTINGUISH, true);
+extern BSEMAPHORE_DECL(sem_LED_ROAMING, false);
+
+
 static THD_WORKING_AREA(WAextinguish_blink_pattern, 64); // allocate memory for the tread extinguish_blink_pattern
 static THD_FUNCTION(extinguish_blink_pattern, arg) {
     chRegSetThreadName(__FUNCTION__);

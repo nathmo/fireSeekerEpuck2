@@ -18,22 +18,23 @@
 #include <camera/po8030.h>
 #include <camera/dcmi_camera.h>
 #include <camera.h>
+#include <stdbool.h>
 
 // Define the struct with a single bit flag
 struct Camera_flag {
-    uint8_t is_fire_detected : 1;
+    bool is_fire_detected : 1;
 };
 
 // Variable of type struct MyStruct
 struct Camera_flag camera_flag;
 
 // Setter function
-void setIsFireDetected(uint8_t value) {
+void setIsFireDetected(bool value) {
     camera_flag.is_fire_detected = value;
 }
 
 // Getter function
-uint8_t getIsFireDetected() {
+bool getIsFireDetected(void) {
     return camera_flag.is_fire_detected;
 }
 

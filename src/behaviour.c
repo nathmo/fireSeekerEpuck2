@@ -72,12 +72,15 @@ True │       │ False      │           │  ┌──┬──────�
 └───────────────────┘                                            
 */
 
+#include <camera.h>
 #include <ch.h>
 #include <hal.h>
 #include <chprintf.h>
 #include <usbcfg.h>
-#include <camera.h>
 #include <behaviour.h>
+#include <camera/po8030.h>
+#include <camera/dcmi_camera.h>
+#include <stdbool.h>
 
 static THD_WORKING_AREA(WAstate_machine, 64); // allocate memory for the tread extinguish_blink_pattern
 static THD_FUNCTION(state_machine, arg) {

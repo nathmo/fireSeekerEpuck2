@@ -19,7 +19,7 @@
 #include <chprintf.h>
 #include <stdint.h>
 #include "sensors/proximity.h"
-
+#include "IR_proximity.h"
 
 // Define the struct with 5 boolean flags
 struct DetectionFlags {
@@ -55,23 +55,23 @@ void setNoObstacleDetected(bool value) {
 }
 
 // Getter functions for each flag
-bool getFrontRight() {
+bool getFrontRight(void) {
     return detectionFlags.frontRight;
 }
 
-bool getFrontLeft() {
+bool getFrontLeft(void) {
     return detectionFlags.frontLeft;
 }
 
-bool getSideRight() {
+bool getSideRight(void) {
     return detectionFlags.sideRight;
 }
 
-bool getSideLeft() {
+bool getSideLeft(void) {
     return detectionFlags.sideLeft;
 }
 
-bool getNoObstacleDetected() {
+bool getNoObstacleDetected(void) {
     return detectionFlags.noObstacleDetected;
 }
 
@@ -87,7 +87,7 @@ static THD_FUNCTION(detection_collision_side, arg) {
         // Lire les distances des capteurs spécifiés
         for (uint8_t i = 0; i < sizeof(sensor_indices) / sizeof(sensor_indices[0]); i++) {
             uint8_t sensor_index = sensor_indices[i];
-            uint16_t current_distance = get_proximity(sensor_index);
+            uint16_t current_distance = get_prox(sensor_index);
             uint16_t MIN_DISTANCE = 800; // Quand on est au plus proche du capteur
             // Mettre à jour le capteur le plus proche si la distance est inférieure ou égale à MIN_DISTANCE
             if (current_distance >= MIN_DISTANCE && current_distance >= MAX_DISTANCE_THRESHOLD) {
