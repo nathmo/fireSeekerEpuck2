@@ -14,6 +14,8 @@
 
 #include <stdint.h>
 
+#define DEGREES_TO_STEPS(angle_degrees) ((angle_degrees * 340) / 90) // Définition de la constante pour la conversion d'angle en steps
+
 // Fonction pour orienter le robot vers un capteur spécifique
 void orientation_sensor(uint8_t sensor_index);
 
@@ -24,6 +26,6 @@ void turn_specific_angle(int16_t angle_degrees);
 void avancer(int16_t vitesse);
 
 // Fonction pour arrêter les moteurs du robot
-void stop_engines();
+void stop_engines(void);
 
 #endif

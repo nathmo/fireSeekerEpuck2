@@ -81,6 +81,8 @@ True │       │ False      │           │  ┌──┬──────�
 #include <camera/po8030.h>
 #include <camera/dcmi_camera.h>
 #include <stdbool.h>
+#include "IR_proximity.h"
+#include "movement.h"
 
 static THD_WORKING_AREA(WAstate_machine, 64); // allocate memory for the tread extinguish_blink_pattern
 static THD_FUNCTION(state_machine, arg) {

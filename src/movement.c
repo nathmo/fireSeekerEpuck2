@@ -15,14 +15,10 @@
 
 #include <ch.h>
 #include <hal.h>
+#include "../e-puck2_main-processor/src/motors.h"
+#include "../e-puck2_main-processor/src/leds.h"
 #include <math.h>
-#include <usbcfg.h>
-#include <chprintf.h>
-#include <motors.h>
-
-
-
-#define DEGREES_TO_STEPS(angle_degrees) ((angle_degrees * 340) / 90) // Définition de la constante pour la conversion d'angle en steps
+#include "movement.h"
 
 const uint16_t sensor_angles[] = {15, 50, 90, 150, 210, 270, 310, 345}; // Tableau des angles correspondants aux capteurs (en degrés)
 
@@ -102,7 +98,7 @@ void avancer(int16_t vitesse) {
     right_motor_set_speed(vitesse);
 }
 
-void stop_engines() {
+void stop_engines(void) {
     left_motor_set_speed(0);
     right_motor_set_speed(0);
 }

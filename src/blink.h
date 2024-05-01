@@ -15,6 +15,8 @@
 #include <hal.h>
 #include <leds.h> // Fichier donné par le professeur
 
+static BSEMAPHORE_DECL(sem_LED_EXTINGUISH, true);
+static BSEMAPHORE_DECL(sem_LED_ROAMING, false);
 
 // Fonction pour démarrer le motif de clignotement de patrouille
 void process_blink_start(void);
