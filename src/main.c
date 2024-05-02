@@ -48,16 +48,35 @@ int main(void) {
 
     // start all the threads
     //process_IR_proximity_start();
-    process_blink_start();
+    //process_blink_start();
     //process_camera_start();
     //process_state_machine_start();
     
     // do nothing. the thread will do the work (check behaviour file to understand)
-    while(1) {
-        set_fire_blink_mode(false);
-		chThdSleepMilliseconds(10000);
-        set_fire_blink_mode(true);
-        chThdSleepMilliseconds(10000);
+    while(true) {
+		chThdSleepMilliseconds(1000);
+        turn_toward_given_sensor(7);
+        chThdSleepMilliseconds(1000);
+        turn_toward_given_sensor(0);
+		chThdSleepMilliseconds(1000);
+        turn_toward_given_sensor(6);
+        chThdSleepMilliseconds(1000);
+        turn_toward_given_sensor(1);
+		chThdSleepMilliseconds(1000);
+        turn_specific_angle(90);
+        chThdSleepMilliseconds(1000);
+        turn_specific_angle(-90);
+
+        // use camera to check if its a fire
+        /*
+        chBSemSignal(&sem_capture_image); // start the image processing workflow
+        chBSemWait(&sem_process_image_ready); // wait that the workflow is done
+        if (getIsFireDetected()){
+            set_fire_blink_mode(true);
+        } else {
+            set_fire_blink_mode(false); // there is no fire
+        }
+        */
 	}
 }
 
