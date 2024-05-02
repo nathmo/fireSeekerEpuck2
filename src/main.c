@@ -47,14 +47,17 @@ int main(void) {
 	spi_comm_start();
 
     // start all the threads
-    process_IR_proximity_start();
+    //process_IR_proximity_start();
     process_blink_start();
-    process_camera_start();
-    process_state_machine_start();
+    //process_camera_start();
+    //process_state_machine_start();
     
     // do nothing. the thread will do the work (check behaviour file to understand)
     while(1) {
-		chThdSleepMilliseconds(1000);
+        set_fire_blink_mode(false);
+		chThdSleepMilliseconds(10000);
+        set_fire_blink_mode(true);
+        chThdSleepMilliseconds(10000);
 	}
 }
 

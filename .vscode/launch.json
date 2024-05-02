@@ -7,7 +7,7 @@
         {
             "name": "BMP launch to main",
             "cwd": "${workspaceRoot}/src",
-            "executable": "${workspaceRoot}/src/blinky.elf",
+            "executable": "${workspaceRoot}/src/build/fireExtinguisher.elf",
             "request": "launch",
             "type": "cortex-debug",
             "servertype": "bmp",

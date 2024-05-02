@@ -83,38 +83,41 @@ True │       │ False      │           │  ┌──┬──────�
 #include <stdbool.h>
 #include "IR_proximity.h"
 #include "movement.h"
+#include "blink.h"
 
 static THD_WORKING_AREA(WAstate_machine, 64); // allocate memory for the tread extinguish_blink_pattern
 static THD_FUNCTION(state_machine, arg) {
     chRegSetThreadName(__FUNCTION__);
     (void)arg;
-            // Initial state
-    int state = 0;
-
+    int state = 0; // Initial state
+    int arrival_direction = 0;
     // State machine loop
     while (TRUE) {
-        // Switch-case statement to handle states
         switch(state) {
             case 0:
                 // Move forward slow
                 if(getNoObstacleDetected()) {
-                    // TODO call start motor
-                    state = 0; // if there is no collision, we keep the course motor
+                    avancer(50);
+                    state = 0; // if there is no collision, we keep the course
                 } else {
-                    // TODO call stop motor
+                    stop_engines();
                     state = 1; // if there is a collision, we stop the motor
                 }
                 break;
             case 1:
                 // turn toward obstacle
                 if (getFrontRight()) {
-                    orientation_sensor(1);
+                    turn_toward_given_sensor(1);
+                    arrival_direction = 1;
                 } else if (getFrontLeft()){
-                    orientation_sensor(8);
+                    turn_toward_given_sensor(8);
+                    arrival_direction = 8;
                 } else if (getSideRight()){
-                    orientation_sensor(2);
+                    turn_toward_given_sensor(2);
+                    arrival_direction = 2;
                 } else if (getSideLeft()){
-                    orientation_sensor(7);
+                    turn_toward_given_sensor(7);
+                    arrival_direction = 7;
                 }
                 state = 2;
                 break;
@@ -129,11 +132,27 @@ static THD_FUNCTION(state_machine, arg) {
                 }
                 break;
             case 3:
+                set_fire_blink_mode(false);
                 // turn away from obstacle
+                 switch(arrival_direction) {
+                    case 1:
+                        turn_specific_angle(90); // adapt angle for "bouncing"
+                        break;
+                    case 2:
+                        turn_specific_angle(90);
+                        break;
+                    case 7:
+                        turn_specific_angle(90);
+                        break;
+                    case 8:
+                        turn_specific_angle(90);
+                        break;
+                 }
                 state = 0; // and return to move foward slow
                 break;
             case 4:
-                //enable light and sound and rush forward
+                //enable light and rush forward
+                set_fire_blink_mode(true);
                 // also start the timeout process
                 state = 0; // if the fire was extinguished (no more obstacle)
                 state = 5; // if there is still an obstacle -> state to check timeout

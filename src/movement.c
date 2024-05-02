@@ -23,7 +23,7 @@
 const uint16_t sensor_angles[] = {15, 50, 90, 150, 210, 270, 310, 345}; // Tableau des angles correspondants aux capteurs (en degrés)
 
 // Fonction pour orienter le robot vers un capteur spécifique
-void orientation_sensor(uint8_t sensor_index) {
+void turn_toward_given_sensor(uint8_t sensor_index) {
 
     motors_init();
 

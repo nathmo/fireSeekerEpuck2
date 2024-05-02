@@ -17,7 +17,7 @@
 #define DEGREES_TO_STEPS(angle_degrees) ((angle_degrees * 340) / 90) // Définition de la constante pour la conversion d'angle en steps
 
 // Fonction pour orienter le robot vers un capteur spécifique
-void orientation_sensor(uint8_t sensor_index);
+void turn_toward_given_sensor(uint8_t sensor_index);
 
 // Fonction pour tourner d'un angle spécifique (en degrés)
 void turn_specific_angle(int16_t angle_degrees);
