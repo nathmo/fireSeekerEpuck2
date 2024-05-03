@@ -107,16 +107,16 @@ static THD_FUNCTION(state_machine, arg) {
             case 1:
                 // turn toward obstacle
                 if (getFrontRight()) {
-                    turn_toward_given_sensor(1);
+                    turn_toward_given_sensor(0);
                     arrival_direction = 1;
                 } else if (getFrontLeft()){
-                    turn_toward_given_sensor(8);
+                    turn_toward_given_sensor(7);
                     arrival_direction = 8;
                 } else if (getSideRight()){
-                    turn_toward_given_sensor(2);
+                    turn_toward_given_sensor(1);
                     arrival_direction = 2;
                 } else if (getSideLeft()){
-                    turn_toward_given_sensor(7);
+                    turn_toward_given_sensor(6);
                     arrival_direction = 7;
                 }
                 state = 2;

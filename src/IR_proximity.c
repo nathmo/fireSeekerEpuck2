@@ -75,7 +75,7 @@ bool getNoObstacleDetected(void) {
     return detectionFlags.noObstacleDetected;
 }
 
-static THD_WORKING_AREA(WAdetection_collision_side, 64); // allocate memory for the tread detection_collision_side
+static THD_WORKING_AREA(WAdetection_collision_side, 128); // allocate memory for the tread detection_collision_side
 static THD_FUNCTION(detection_collision_side, arg) {
     chRegSetThreadName(__FUNCTION__);
     (void)arg;
@@ -137,5 +137,5 @@ static THD_FUNCTION(detection_collision_side, arg) {
 }
 
 void process_IR_proximity_start(void){
-    chThdCreateStatic(WAdetection_collision_side, sizeof(WAdetection_collision_side), HIGHPRIO, detection_collision_side, NULL);
+    chThdCreateStatic(WAdetection_collision_side, sizeof(WAdetection_collision_side), NORMALPRIO, detection_collision_side, NULL);
 }
