@@ -42,7 +42,7 @@ void turn_toward_given_sensor(uint8_t sensor_index) {
 }
 
 void turn_specific_angle(int16_t angle_degrees) {
-    int16_t number_of_step = (angle_degrees*7)/2;
+    int16_t number_of_step = (angle_degrees*9)/2;
     motors_init();
     int8_t direction = 1; 
     left_motor_set_pos(0);

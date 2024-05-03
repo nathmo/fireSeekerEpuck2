@@ -55,14 +55,6 @@ int main(void) {
     // do nothing. the thread will do the work (check behaviour file to understand)
     while(true) {
 		chThdSleepMilliseconds(1000);
-        turn_toward_given_sensor(7);
-        chThdSleepMilliseconds(1000);
-        turn_toward_given_sensor(0);
-		chThdSleepMilliseconds(1000);
-        turn_toward_given_sensor(6);
-        chThdSleepMilliseconds(1000);
-        turn_toward_given_sensor(1);
-		chThdSleepMilliseconds(1000);
         turn_specific_angle(90);
         chThdSleepMilliseconds(1000);
         turn_specific_angle(-90);

@@ -82,7 +82,6 @@ static THD_FUNCTION(process_image, arg) {
     while(TRUE){
         //waits for the image to be ready
         chBSemWait(&sem_capture_image_ready);
-
         //copy the red frame to the red buffer :
         for(uint16_t i = 0 ; i < (2 * IMAGE_BUFFER_SIZE) ; i+=2){
             //extracts 5 MSbits of the MSbyte (First byte in big-endian format)
@@ -101,7 +100,6 @@ static THD_FUNCTION(process_image, arg) {
             //takes nothing from the first byte
             image_blue[i/2] = ((uint8_t)img_buff_ptr[i+1] & 0x1F) << 3;
         }
-
         // Calculate the total amount of red, green, and blue
         total_red = 0;
         total_green = 0;
@@ -111,10 +109,8 @@ static THD_FUNCTION(process_image, arg) {
             total_green += image_green[i];
             total_blue += image_blue[i];
         }
-
         // Calculate the average of green and blue
         uint32_t average_green_blue = (total_green + total_blue) / 2;
-
         // Check if the red frame value is at least RED_FACTOR times bigger than the average of green and blue
         if ((double)total_red >= RED_FACTOR * (double)average_green_blue) {
             // Signal that fire is detected
