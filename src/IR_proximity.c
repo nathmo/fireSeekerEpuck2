@@ -94,8 +94,6 @@ static THD_WORKING_AREA(WAdetection_collision_side, 128); // allocate memory for
 static THD_FUNCTION(detection_collision_side, arg) {
     chRegSetThreadName(__FUNCTION__);
     (void)arg;
-    const uint16_t MAX_DISTANCE_THRESHOLD = 50; // Se trouve "loin" de l'obstacle
-    const uint8_t sensor_indices[4] = {0, 1, 6, 7};
     while(true){
         int8_t closest_sensor_index = get_closest_sensor_index();
         // Retourner l'index du capteur qui touche.
