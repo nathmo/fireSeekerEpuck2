@@ -13,6 +13,7 @@
         "movement.h": "c",
         "leds.h": "c",
         "math.h": "c",
-        "stdbool.h": "c"
+        "stdbool.h": "c",
+        "main.h": "c"
     },
 }

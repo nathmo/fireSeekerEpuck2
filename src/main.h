@@ -5,15 +5,25 @@
 extern "C" {
 #endif
 
-
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <math.h>
+#include <ch.h>
+#include <hal.h>
+#include <memory_protection.h>
+#include <usbcfg.h>
+#include <motors.h>
+#include <camera/po8030.h>
+#include <chprintf.h>
+#include <spi_comm.h>
+#include <stdbool.h>
 #include <camera/dcmi_camera.h>
 #include <msgbus/messagebus.h>
 #include <parameter/parameter.h>
 
-
-/** Robot wide IPC bus. */
+// Declare the message bus and parameter namespace globally
 extern messagebus_t bus;
-
 extern parameter_namespace_t parameter_root;
 
 void SendUint8ToComputer(uint8_t* data, uint16_t size);

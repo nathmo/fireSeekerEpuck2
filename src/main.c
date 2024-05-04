@@ -12,25 +12,16 @@
  * TODO : start main threads  (Nathann Morand)
  */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <math.h>
-#include <ch.h>
-#include <hal.h>
-#include <memory_protection.h>
-#include <usbcfg.h>
-#include <motors.h>
-#include <camera/po8030.h>
-#include <chprintf.h>
-#include <spi_comm.h>
-#include <stdbool.h>
 
-#include <main.h>
 #include <IR_proximity.h>
 #include <camera.h>
 #include <blink.h>
 #include <behaviour.h>
+#include "main.h"
+
+messagebus_t bus;
+MUTEX_DECL(bus_lock);
+CONDVAR_DECL(bus_condvar);
 
 // Main function
 int main(void) {
@@ -47,42 +38,45 @@ int main(void) {
 	spi_comm_start();
 
     // start all the threads
-    //process_IR_proximity_start();
+    process_IR_proximity_start();
     process_blink_start();
     //process_camera_start();
     //process_state_machine_start();
     
     // do nothing. the thread will do the work (check behaviour file to understand)
     while(true) {
-        set_fire_blink_mode(true);
-		chThdSleepMilliseconds(5000);
+        chThdSleepMilliseconds(1000); // always sleep in main thread to let other thread time to run
         set_fire_blink_mode(false);
-		chThdSleepMilliseconds(5000);
         /*
         if (getFrontRight()) {
+            set_fire_blink_mode(true);
             turn_toward_given_sensor(0);
             chThdSleepMilliseconds(1000);
             turn_toward_given_sensor(7);
         } else if (getFrontLeft()){
+            set_fire_blink_mode(true);
             turn_toward_given_sensor(7);
             chThdSleepMilliseconds(1000);
             turn_toward_given_sensor(0);
         } else if (getSideRight()){
+            set_fire_blink_mode(true);
             turn_toward_given_sensor(1);
             chThdSleepMilliseconds(1000);
             turn_toward_given_sensor(6);
         } else if (getSideLeft()){
+            set_fire_blink_mode(true);
             turn_toward_given_sensor(6);
             chThdSleepMilliseconds(1000);
             turn_toward_given_sensor(1);
         } else if (getNoObstacleDetected()){
-            //set_fire_blink_mode(false);
+            set_fire_blink_mode(false);
             chThdSleepMilliseconds(1000);
-            //set_fire_blink_mode(true);
+
         }
         */
+
         // use camera to check if its a fire
-        /*
+/*
         chBSemSignal(&sem_capture_image); // start the image processing workflow
         chBSemWait(&sem_process_image_ready); // wait that the workflow is done
         if (getIsFireDetected()){
@@ -90,7 +84,8 @@ int main(void) {
         } else {
             set_fire_blink_mode(false); // there is no fire
         }
-        */
+        chThdSleepMilliseconds(1000);
+*/
 	}
 }
 

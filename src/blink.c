@@ -83,5 +83,6 @@ static THD_FUNCTION(blink_pattern, arg) {
 }
 
 void process_blink_start(void){
+    set_fire_blink_mode(false);
     chThdCreateStatic(WAblink_pattern, sizeof(WAblink_pattern), LOWPRIO, blink_pattern, NULL);
 }

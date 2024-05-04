@@ -18,7 +18,7 @@
 #include <usbcfg.h>
 #include <chprintf.h>
 #include <stdint.h>
-#include "sensors/proximity.h"
+#include "../e-puck2_main-processor/src/sensors/proximity.h"
 #include "IR_proximity.h"
 
 // Define the struct with 5 boolean flags
@@ -75,50 +75,53 @@ bool getNoObstacleDetected(void) {
     return detectionFlags.noObstacleDetected;
 }
 
+uint8_t get_closest_sensor_index(void) {
+    uint16_t raw_distance;
+    uint8_t closest_sensor_index = -1; // Initialize with an invalid value
+    uint16_t min_distance = 500; // Initialize with a large value
+
+    for (uint8_t i = 0; i <= 7; i++) {
+        raw_distance = get_prox(i);
+        if (raw_distance > min_distance) {
+            min_distance = raw_distance;
+            closest_sensor_index = i;
+        }
+    }
+    return closest_sensor_index;
+}
+
 static THD_WORKING_AREA(WAdetection_collision_side, 128); // allocate memory for the tread detection_collision_side
 static THD_FUNCTION(detection_collision_side, arg) {
     chRegSetThreadName(__FUNCTION__);
     (void)arg;
     const uint16_t MAX_DISTANCE_THRESHOLD = 50; // Se trouve "loin" de l'obstacle
-    const uint8_t sensor_indices[4] = {1, 2, 7, 8};
-
+    const uint8_t sensor_indices[4] = {0, 1, 6, 7};
     while(true){
-        int8_t closest_sensor_index = -1; // Initialisation avec une valeur indiquant aucune détection
-        // Lire les distances des capteurs spécifiés
-        for (uint8_t i = 0; i < sizeof(sensor_indices) / sizeof(sensor_indices[0]); i++) {
-            uint8_t sensor_index = sensor_indices[i];
-            uint16_t current_distance = get_prox(sensor_index);
-            uint16_t MIN_DISTANCE = 800; // Quand on est au plus proche du capteur
-            // Mettre à jour le capteur le plus proche si la distance est inférieure ou égale à MIN_DISTANCE
-            if (current_distance >= MIN_DISTANCE && current_distance >= MAX_DISTANCE_THRESHOLD) {
-                MIN_DISTANCE = current_distance;
-                closest_sensor_index = sensor_index;
-            }
-        }
+        int8_t closest_sensor_index = get_closest_sensor_index();
         // Retourner l'index du capteur qui touche.
         switch(closest_sensor_index) {
-            case 1:
+            case 0:
                 setFrontRight(true);
                 setFrontLeft(false);
                 setSideRight(false);
                 setSideLeft(false);
                 setNoObstacleDetected(false);
                 break;
-            case 2:
+            case 1:
                 setFrontRight(false);
                 setFrontLeft(false);
                 setSideRight(true);
                 setSideLeft(false);
                 setNoObstacleDetected(false);
                 break;
-            case 7:
+            case 6:
                 setFrontRight(false);
                 setFrontLeft(false);
                 setSideRight(false);
                 setSideLeft(true);
                 setNoObstacleDetected(false);
                 break;
-            case 8:
+            case 7:
                 setFrontRight(false);
                 setFrontLeft(true);
                 setSideRight(false);
@@ -132,10 +135,16 @@ static THD_FUNCTION(detection_collision_side, arg) {
                 setSideLeft(false);
                 setNoObstacleDetected(true); // aucune collision est détectée
         }
-        chThdSleepMilliseconds(10);
+        chThdSleepMilliseconds(100);
     }
 }
 
 void process_IR_proximity_start(void){
+    setFrontRight(false);
+    setFrontLeft(false);
+    setSideRight(false);
+    setSideLeft(false);
+    setNoObstacleDetected(true);
+    proximity_start();
     chThdCreateStatic(WAdetection_collision_side, sizeof(WAdetection_collision_side), NORMALPRIO, detection_collision_side, NULL);
 }
