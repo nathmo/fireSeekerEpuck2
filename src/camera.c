@@ -82,6 +82,7 @@ static THD_FUNCTION(process_image, arg) {
     while(TRUE){
         //waits for the image to be ready
         chBSemWait(&sem_capture_image_ready);
+        img_buff_ptr = dcmi_get_last_image_ptr();
         //copy the red frame to the red buffer :
         for(uint16_t i = 0 ; i < (2 * IMAGE_BUFFER_SIZE) ; i+=2){
             //extracts 5 MSbits of the MSbyte (First byte in big-endian format)
