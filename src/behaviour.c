@@ -85,7 +85,7 @@ True │       │ False      │           │  ┌──┬──────�
 #include "movement.h"
 #include "blink.h"
 
-static THD_WORKING_AREA(WAstate_machine, 64); // allocate memory for the tread extinguish_blink_pattern
+static THD_WORKING_AREA(WAstate_machine, 256); // allocate memory for the tread extinguish_blink_pattern
 static THD_FUNCTION(state_machine, arg) {
     chRegSetThreadName(__FUNCTION__);
     (void)arg;
@@ -98,7 +98,8 @@ static THD_FUNCTION(state_machine, arg) {
             case 0:
                 // Move forward slow
                 if(getNoObstacleDetected()) {
-                    avancer(50);
+                    avancer(100);
+                    chThdSleepMilliseconds(100);
                     state = 0; // if there is no collision, we keep the course
                 } else {
                     stop_engines();
@@ -124,9 +125,9 @@ static THD_FUNCTION(state_machine, arg) {
                 break;
             case 2:
                 // use camera to check if its a fire
-                chBSemSignal(&sem_capture_image); // start the image processing workflow
-                chBSemWait(&sem_process_image_ready); // wait that the workflow is done
-                if (getIsFireDetected()){
+                //chBSemSignal(&sem_capture_image); // start the image processing workflow
+                //chBSemWait(&sem_process_image_ready); // wait that the workflow is done
+                if (false){ //getIsFireDetected()
                     state = 4; // there is a fire
                     timeout_extinguish = 0;
                 } else {
@@ -159,7 +160,7 @@ static THD_FUNCTION(state_machine, arg) {
                     stop_engines();
                     state = 0; // if there is no collision, we keep the course
                 } else {
-                    avancer(100);
+                    avancer(200);
                     chThdSleepMilliseconds(50);
                     state = 5; // if there is still an obstacle -> state to check timeout
                 }
@@ -183,7 +184,7 @@ static THD_FUNCTION(state_machine, arg) {
                 state = 0;  // Go back to the initial state
                 break;
         }
-        chThdSleepMilliseconds(2);
+        chThdSleepMilliseconds(100);
     }
 }
 

@@ -124,6 +124,7 @@ static THD_FUNCTION(process_image, arg) {
 }
 
 void process_camera_start(void){
+    setIsFireDetected(false);
     chThdCreateStatic(WAcapture_image, sizeof(WAcapture_image), NORMALPRIO, capture_image, NULL);
     chThdCreateStatic(WAprocess_image, sizeof(WAprocess_image), NORMALPRIO, process_image, NULL);
 }
