@@ -71,7 +71,7 @@ static THD_FUNCTION(process_image, arg) {
     (void)arg;
 
     // declare the space for storing the image
-    uint16_t *img_buff_ptr;
+    uint8_t *img_buff_ptr;
     uint8_t image_red[IMAGE_BUFFER_SIZE] = {0};
     uint8_t image_green[IMAGE_BUFFER_SIZE] = {0};
     uint8_t image_blue[IMAGE_BUFFER_SIZE] = {0};
