@@ -45,11 +45,12 @@ int main(void) {
     process_IR_proximity_start();
     process_blink_start();
     //process_camera_start();
-    //process_state_machine_start();
+    process_state_machine_start();
     
     // do nothing. the thread will do the work (check behaviour file to understand)
     while(true) {
         chThdSleepMilliseconds(1000); // always sleep in main thread to let other thread time to run
+/*
         if (getFrontRight()) {
             set_fire_blink_mode(true);
             turn_toward_given_sensor(0);
@@ -74,7 +75,7 @@ int main(void) {
             set_fire_blink_mode(false);
             chThdSleepMilliseconds(1000);
         }
-
+*/
 
         // use camera to check if its a fire
 /*

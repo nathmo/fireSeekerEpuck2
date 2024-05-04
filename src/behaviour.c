@@ -89,10 +89,11 @@ static THD_WORKING_AREA(WAstate_machine, 64); // allocate memory for the tread e
 static THD_FUNCTION(state_machine, arg) {
     chRegSetThreadName(__FUNCTION__);
     (void)arg;
-    int state = 0; // Initial state
-    int arrival_direction = 0;
+    uint8_t state = 0; // Initial state
+    uint8_t arrival_direction = 0;
+    uint8_t timeout_extinguish = 0;
     // State machine loop
-    while (TRUE) {
+    while (true) {
         switch(state) {
             case 0:
                 // Move forward slow
@@ -127,6 +128,7 @@ static THD_FUNCTION(state_machine, arg) {
                 chBSemWait(&sem_process_image_ready); // wait that the workflow is done
                 if (getIsFireDetected()){
                     state = 4; // there is a fire
+                    timeout_extinguish = 0;
                 } else {
                     state = 3; // there is no fire
                 }
@@ -136,16 +138,16 @@ static THD_FUNCTION(state_machine, arg) {
                 // turn away from obstacle
                  switch(arrival_direction) {
                     case 1:
-                        turn_specific_angle(90); // adapt angle for "bouncing"
+                        turn_specific_angle(165); // adapt angle for "bouncing"
                         break;
                     case 2:
-                        turn_specific_angle(90);
+                        turn_specific_angle(130);
                         break;
                     case 7:
-                        turn_specific_angle(90);
+                        turn_specific_angle(-130);
                         break;
                     case 8:
-                        turn_specific_angle(90);
+                        turn_specific_angle(165);
                         break;
                  }
                 state = 0; // and return to move foward slow
@@ -153,21 +155,28 @@ static THD_FUNCTION(state_machine, arg) {
             case 4:
                 //enable light and rush forward
                 set_fire_blink_mode(true);
-                // also start the timeout process
-                state = 0; // if the fire was extinguished (no more obstacle)
-                state = 5; // if there is still an obstacle -> state to check timeout
+                if(getNoObstacleDetected()) { // if the fire is extinguish
+                    stop_engines();
+                    state = 0; // if there is no collision, we keep the course
+                } else {
+                    avancer(100);
+                    chThdSleepMilliseconds(50);
+                    state = 5; // if there is still an obstacle -> state to check timeout
+                }
                 break;
             case 5:
+                timeout_extinguish++;
                 //increment timeout counter.
-                state = 4; // if no timeout we go back to extinguishing the fire
-                state = 3; // if timeout, we turn away from obstacle
+                if(timeout_extinguish<60){
+                    state = 4; // if no timeout we go back to extinguishing the fire
+                } else {
+                    state = 3; // if timeout, we turn away from obstacle
+                }
                 break;
             case 6:
-                
-                state = 7;
+                state = 0;
                 break;
             case 7:
-                
                 state = 0;  // Go back to the initial state
                 break;
             default:
