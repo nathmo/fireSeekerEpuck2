@@ -77,8 +77,8 @@ bool getNoObstacleDetected(void) {
 
 uint8_t get_closest_sensor_index(void) {
     uint16_t raw_distance;
-    uint8_t closest_sensor_index = -1; // Initialize with an invalid value
-    uint16_t min_distance = 500; // Initialize with a large value
+    uint8_t closest_sensor_index = -1; 
+    uint16_t min_distance = 500; 
 
     for (uint8_t i = 0; i <= 7; i++) {
         raw_distance = get_prox(i);
@@ -145,6 +145,5 @@ void process_IR_proximity_start(void){
     setSideRight(false);
     setSideLeft(false);
     setNoObstacleDetected(true);
-    proximity_start();
     chThdCreateStatic(WAdetection_collision_side, sizeof(WAdetection_collision_side), NORMALPRIO, detection_collision_side, NULL);
 }

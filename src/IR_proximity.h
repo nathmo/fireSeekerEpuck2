@@ -25,6 +25,7 @@ bool getFrontLeft(void);
 bool getSideRight(void);
 bool getSideLeft(void);
 bool getNoObstacleDetected(void);
+uint8_t get_closest_sensor_index(void);
 // Fonction pour démarrer le traitement de la proximité IR
 void process_IR_proximity_start(void);
 

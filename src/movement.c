@@ -35,8 +35,12 @@ void turn_toward_given_sensor(uint8_t sensor_index) {
     }
     left_motor_set_speed(direction*(300));
     right_motor_set_speed(direction*(-300));
-    while(left_motor_get_pos() != number_of_step);
-    while(right_motor_get_pos() != -number_of_step);
+    while(left_motor_get_pos() != number_of_step){
+        chThdSleepMilliseconds(1);
+    }
+    while(right_motor_get_pos() != -number_of_step){
+        chThdSleepMilliseconds(1);
+    }
     left_motor_set_speed(0);
     right_motor_set_speed(0); 
 }

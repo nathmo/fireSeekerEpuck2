@@ -18,6 +18,7 @@
 #include <blink.h>
 #include <behaviour.h>
 #include "main.h"
+#include "movement.h"
 
 messagebus_t bus;
 MUTEX_DECL(bus_lock);
@@ -31,6 +32,9 @@ int main(void) {
     //starts the camera
     dcmi_start();
 	po8030_start();
+    //inits proximity sensors
+    messagebus_init(&bus, &bus_lock, &bus_condvar);
+    proximity_start();
 	//inits the motors
 	motors_init();
 
@@ -46,8 +50,6 @@ int main(void) {
     // do nothing. the thread will do the work (check behaviour file to understand)
     while(true) {
         chThdSleepMilliseconds(1000); // always sleep in main thread to let other thread time to run
-        set_fire_blink_mode(false);
-        /*
         if (getFrontRight()) {
             set_fire_blink_mode(true);
             turn_toward_given_sensor(0);
@@ -71,9 +73,8 @@ int main(void) {
         } else if (getNoObstacleDetected()){
             set_fire_blink_mode(false);
             chThdSleepMilliseconds(1000);
-
         }
-        */
+
 
         // use camera to check if its a fire
 /*
