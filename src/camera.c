@@ -55,6 +55,9 @@ static THD_FUNCTION(capture_image, arg) {
 
     while(true){
         chThdSleepMilliseconds(100);//limit max FPS
+        po8030_set_awb(0);  // Set AWB to manual mode
+        po8030_set_rgb_gain(127, 127, 127);  // Set white balance gains manually to 1 -> p.34 https://projects.gctronic.com/E-Puck/docs/Camera/PO8030D.pdf
+        po8030_set_ae(1);  // Enable auto exposure
         //starts a capture
         dcmi_capture_start();
         //waits for the capture to be done

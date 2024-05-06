@@ -135,6 +135,8 @@ static THD_FUNCTION(state_machine, arg) {
                 break;
             case 2:
                 previous_state = state; // this prevent problem with avancer() who dont work if called to often
+                setIsFireDetected(false); // reset the flag so ack that we processed it
+                chThdSleepMilliseconds(300);
                 // use camera to check if its a fire
                 if (getIsFireDetected()){ //getIsFireDetected()
                     state = 4; // there is a fire
