@@ -46,26 +46,26 @@ static THD_FUNCTION(blink_pattern, arg) {
     while(true){
         if(get_fire_blink_mode()){
             clear_leds();
-            toggle_rgb_led(LED2, BLUE_LED, 100); 
+            toggle_rgb_led(LED2, RED_LED, 100); 
             chThdSleepMilliseconds(100);          
             clear_leds();                         
-            toggle_rgb_led(LED4, BLUE_LED, 100);  
+            toggle_rgb_led(LED4, RED_LED, 100);  
             chThdSleepMilliseconds(100);          
             clear_leds();                         
-            toggle_rgb_led(LED6, BLUE_LED, 100);  
+            toggle_rgb_led(LED6, RED_LED, 100);  
             chThdSleepMilliseconds(100);          
             clear_leds();                          
-            toggle_rgb_led(LED8, BLUE_LED, 100);  
+            toggle_rgb_led(LED8, RED_LED, 100);  
             chThdSleepMilliseconds(100);       
             clear_leds();  
         } else { // roaming blink pattern
             while (intensity >= 0 && intensity <= 50) {
                 clear_leds();
                 // Allumer les LED rouges avec l'intensité actuelle
-                toggle_rgb_led(LED2, RED_LED, intensity);
-                toggle_rgb_led(LED4, RED_LED, intensity);
-                toggle_rgb_led(LED6, RED_LED, intensity);
-                toggle_rgb_led(LED8, RED_LED, intensity);
+                toggle_rgb_led(LED2, BLUE_LED, intensity);
+                toggle_rgb_led(LED4, BLUE_LED, intensity);
+                toggle_rgb_led(LED6, BLUE_LED, intensity);
+                toggle_rgb_led(LED8, BLUE_LED, intensity);
 
                 // Attendre un court laps de temps pour observer le changement progressif
                 chThdSleepMilliseconds(10);
