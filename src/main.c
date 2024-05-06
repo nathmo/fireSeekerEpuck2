@@ -49,7 +49,7 @@ int main(void) {
     process_camera_start();
     process_state_machine_start();
     while(true) { // the thead in behaviour do the job (among others) main is empty
-        chThdSleepMilliseconds(1000); // always sleep in main thread to let other thread time to run
+        chThdSleepMilliseconds(5000); // always sleep in main thread to let other thread time to run
 	}
 }
 

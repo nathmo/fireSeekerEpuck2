@@ -9,6 +9,8 @@
 #include <camera/po8030.h>
 #include <camera/dcmi_camera.h>
 
+#define FASTPACE 600
+#define SLOWPACE 300
 void process_state_machine_start(void);
 
 #endif
