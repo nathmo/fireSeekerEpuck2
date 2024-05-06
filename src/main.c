@@ -23,17 +23,22 @@
 messagebus_t bus;
 MUTEX_DECL(bus_lock);
 CONDVAR_DECL(bus_condvar);
+parameter_namespace_t parameter_root;
 
 // Main function
-d int main(void) {
+int main(void) {
     halInit();
     chSysInit();
     mpu_init();
+
+    messagebus_init(&bus, &bus_lock, &bus_condvar);
+    parameter_namespace_declare(&parameter_root, NULL, NULL);
+
     //starts the camera
     dcmi_start();
 	po8030_start();
     //inits proximity sensors
-    messagebus_init(&bus, &bus_lock, &bus_condvar);
+    
     proximity_start();
 	//inits the motors
 	motors_init();
@@ -45,11 +50,10 @@ d int main(void) {
     process_blink_start();
     process_camera_start();
     process_state_machine_start();
-    set_fire_blink_mode(false);
     while(true) {
         //set_fire_blink_mode(false);
         chThdSleepMilliseconds(1000); // always sleep in main thread to let other thread time to run
-/*
+        /*
         if (getFrontRight()) {
             set_fire_blink_mode(true);
             chThdSleepMilliseconds(100);
@@ -83,16 +87,16 @@ d int main(void) {
         */
 
         // use camera to check if its a fire
-/*
-        chBSemSignal(&sem_capture_image); // start the image processing workflow
-        chBSemWait(&sem_process_image_ready); // wait that the workflow is done
+        /*
         if (getIsFireDetected()){
             set_fire_blink_mode(true);
+            setIsFireDetected(false);
+            chThdSleepMilliseconds(1000);
         } else {
             set_fire_blink_mode(false); // there is no fire
+            chThdSleepMilliseconds(1000);
         }
-        chThdSleepMilliseconds(1000);
-*/
+        */
 	}
 }
 

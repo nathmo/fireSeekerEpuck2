@@ -90,48 +90,63 @@ uint8_t get_closest_sensor_index(void) {
     return closest_sensor_index;
 }
 
-static THD_WORKING_AREA(WAdetection_collision_side, 128); // allocate memory for the tread detection_collision_side
+static THD_WORKING_AREA(WAdetection_collision_side, 1024); // allocate memory for the tread detection_collision_side
 static THD_FUNCTION(detection_collision_side, arg) {
     chRegSetThreadName(__FUNCTION__);
     (void)arg;
+    int8_t closest_sensor_index = -1;
+    int8_t consecutive_hit = 0;
     while(true){
-        int8_t closest_sensor_index = get_closest_sensor_index();
-        // Retourner l'index du capteur qui touche.
-        switch(closest_sensor_index) {
-            case 0:
-                setFrontRight(true);
-                setFrontLeft(false);
-                setSideRight(false);
-                setSideLeft(false);
-                setNoObstacleDetected(false);
-                break;
-            case 1:
-                setFrontRight(false);
-                setFrontLeft(false);
-                setSideRight(true);
-                setSideLeft(false);
-                setNoObstacleDetected(false);
-                break;
-            case 6:
-                setFrontRight(false);
-                setFrontLeft(false);
-                setSideRight(false);
-                setSideLeft(true);
-                setNoObstacleDetected(false);
-                break;
-            case 7:
-                setFrontRight(false);
-                setFrontLeft(true);
-                setSideRight(false);
-                setSideLeft(false);
-                setNoObstacleDetected(false);
-                break;
-            default:
-                setFrontRight(false);
-                setFrontLeft(false);
-                setSideRight(false);
-                setSideLeft(false);
-                setNoObstacleDetected(true); // aucune collision est détectée
+        if(closest_sensor_index == get_closest_sensor_index()){
+            consecutive_hit++;
+        } else {
+            consecutive_hit=0;
+            closest_sensor_index = get_closest_sensor_index();
+        }
+        if(consecutive_hit>3){
+            consecutive_hit=0;
+            switch(closest_sensor_index) {
+                case 0:
+                    setFrontRight(true);
+                    setFrontLeft(false);
+                    setSideRight(false);
+                    setSideLeft(false);
+                    setNoObstacleDetected(false);
+                    break;
+                case 1:
+                    setFrontRight(false);
+                    setFrontLeft(false);
+                    setSideRight(true);
+                    setSideLeft(false);
+                    setNoObstacleDetected(false);
+                    break;
+                case 6:
+                    setFrontRight(false);
+                    setFrontLeft(false);
+                    setSideRight(false);
+                    setSideLeft(true);
+                    setNoObstacleDetected(false);
+                    break;
+                case 7:
+                    setFrontRight(false);
+                    setFrontLeft(true);
+                    setSideRight(false);
+                    setSideLeft(false);
+                    setNoObstacleDetected(false);
+                    break;
+                default:
+                    setFrontRight(false);
+                    setFrontLeft(false);
+                    setSideRight(false);
+                    setSideLeft(false);
+                    setNoObstacleDetected(true); // aucune collision est détectée
+            }
+        } else {
+            setFrontRight(false);
+            setFrontLeft(false);
+            setSideRight(false);
+            setSideLeft(false);
+            setNoObstacleDetected(true); // aucune collision est détectée
         }
         chThdSleepMilliseconds(100);
     }

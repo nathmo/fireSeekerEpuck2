@@ -20,6 +20,8 @@
 #include <camera.h>
 #include <stdbool.h>
 
+static BSEMAPHORE_DECL(sem_capture_image_ready, TRUE);
+
 // Define the struct with a single bit flag
 struct Camera_flag {
     bool is_fire_detected : 1;
@@ -38,34 +40,31 @@ bool getIsFireDetected(void) {
     return camera_flag.is_fire_detected;
 }
 
-static THD_WORKING_AREA(WAcapture_image, 8192);
+static THD_WORKING_AREA(WAcapture_image, 1024);
 static THD_FUNCTION(capture_image, arg) {
     chRegSetThreadName(__FUNCTION__);
     (void)arg;
-    while(TRUE){
-        //waits that we are ready to capture an image
-        chBSemWait(&sem_capture_image);
 
-        // the following code snippet come from TP 4
-        //640 X 480 Pixel Array hardware max (4X subsampling = 160x120) -> 100x50 -> x=(160-100)/2=30, y=(120-50)/2=35
-        //Takes pixels 0 to IMAGE_BUFFER_SIZE of the lines USED_LINE and USED_LINE + 1 (minimum 2 lines because reasons)
-        po8030_advanced_config(FORMAT_RGB565, 30, 35, 100, 50, SUBSAMPLING_X4, SUBSAMPLING_X4);
-        dcmi_enable_double_buffering();
-        dcmi_set_capture_mode(CAPTURE_ONE_SHOT);
-        dcmi_prepare();
+    // the following code snippet come from TP 4
+    //640 X 480 Pixel Array hardware max (4X subsampling = 160x120) -> 100x50 -> x=(160-100)/2=30, y=(120-50)/2=35
+    //Takes pixels 0 to IMAGE_BUFFER_SIZE of the lines USED_LINE and USED_LINE + 1 (minimum 2 lines because reasons)
+    po8030_advanced_config(FORMAT_RGB565, 300, 200, IMAGE_BUFFER_SIZE, 2, SUBSAMPLING_X1, SUBSAMPLING_X1);
+    dcmi_enable_double_buffering();
+    dcmi_set_capture_mode(CAPTURE_ONE_SHOT);
+    dcmi_prepare();
 
-        while(1){
-            //starts a capture
-            dcmi_capture_start();
-            //waits for the capture to be done
-            wait_image_ready();
-            //signals an image has been captured
-            chBSemSignal(&sem_capture_image_ready);
-        }
+    while(true){
+        //starts a capture
+        dcmi_capture_start();
+        //waits for the capture to be done
+        wait_image_ready();
+        //signals an image has been captured
+        chBSemSignal(&sem_capture_image_ready);
     }
+
 }
 
-static THD_WORKING_AREA(WAprocess_image, 20000);
+static THD_WORKING_AREA(WAprocess_image, 8192);
 static THD_FUNCTION(process_image, arg) {
     chRegSetThreadName(__FUNCTION__);
     (void)arg;
@@ -117,9 +116,8 @@ static THD_FUNCTION(process_image, arg) {
             // Signal that fire is detected
             setIsFireDetected(true);
         } else {
-            setIsFireDetected(false);
+            //setIsFireDetected(false);
         }
-        chBSemSignal(&sem_process_image_ready);
     }
 }
 

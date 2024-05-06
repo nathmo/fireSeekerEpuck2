@@ -39,7 +39,7 @@ bool get_fire_blink_mode(void) {
 }
 
 
-static THD_WORKING_AREA(WAblink_pattern, 128); // allocate memory for the tread roaming_blink_pattern
+static THD_WORKING_AREA(WAblink_pattern, 512); // allocate memory for the tread roaming_blink_pattern
 static THD_FUNCTION(blink_pattern, arg) {
     chRegSetThreadName(__FUNCTION__);
     (void)arg;

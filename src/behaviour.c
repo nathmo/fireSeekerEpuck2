@@ -85,7 +85,7 @@ True │       │ False      │           │  ┌──┬──────�
 #include "movement.h"
 #include "blink.h"
 
-static THD_WORKING_AREA(WAstate_machine, 256); // allocate memory for the tread extinguish_blink_pattern
+static THD_WORKING_AREA(WAstate_machine, 2048); // allocate memory for the tread extinguish_blink_pattern
 static THD_FUNCTION(state_machine, arg) {
     chRegSetThreadName(__FUNCTION__);
     (void)arg;
@@ -99,7 +99,6 @@ static THD_FUNCTION(state_machine, arg) {
                 // Move forward slow
                 if(getNoObstacleDetected()) {
                     avancer(100);
-                    chThdSleepMilliseconds(100);
                     state = 0; // if there is no collision, we keep the course
                 } else {
                     stop_engines();
@@ -125,11 +124,10 @@ static THD_FUNCTION(state_machine, arg) {
                 break;
             case 2:
                 // use camera to check if its a fire
-                //chBSemSignal(&sem_capture_image); // start the image processing workflow
-                //chBSemWait(&sem_process_image_ready); // wait that the workflow is done
-                if (false){ //getIsFireDetected()
+                if (getIsFireDetected()){ //getIsFireDetected()
                     state = 4; // there is a fire
                     timeout_extinguish = 0;
+                    setIsFireDetected(false); // reset the flag so ack that we process it
                 } else {
                     state = 3; // there is no fire
                 }
@@ -156,7 +154,7 @@ static THD_FUNCTION(state_machine, arg) {
             case 4:
                 //enable light and rush forward
                 set_fire_blink_mode(true);
-                if(getNoObstacleDetected()) { // if the fire is extinguish
+                if(getNoObstacleDetected()) { // if the fire is extinguished
                     stop_engines();
                     state = 0; // if there is no collision, we keep the course
                 } else {
