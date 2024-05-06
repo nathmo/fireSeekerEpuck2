@@ -19,8 +19,8 @@
 #include <stdbool.h>
 
 // Définition de la constante pour le facteur de comparaison avec la moyenne de vert et bleu
-#define RED_FACTOR 6 // Factor to compare with average of green and blue
-#define IMAGE_BUFFER_SIZE 40 // number of pixel we store
+#define RED_FACTOR 1 // Factor to compare with average of green and blue
+#define IMAGE_BUFFER_SIZE 100 // number of pixel we store
 
 // Fonction pour démarrer le traitement de la caméra
 void process_camera_start(void);

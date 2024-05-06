@@ -46,14 +46,15 @@ static THD_FUNCTION(capture_image, arg) {
     (void)arg;
 
     // the following code snippet come from TP 4
-    //640 X 480 Pixel Array hardware max (4X subsampling = 160x120) -> 100x50 -> x=(160-100)/2=30, y=(120-50)/2=35
+    //640 X 480 Pixel Array hardware max -> 100x1 -> x=(640-100)/2=270, y=480/2=240
     //Takes pixels 0 to IMAGE_BUFFER_SIZE of the lines USED_LINE and USED_LINE + 1 (minimum 2 lines because reasons)
-    po8030_advanced_config(FORMAT_RGB565, 300, 200, IMAGE_BUFFER_SIZE, 2, SUBSAMPLING_X1, SUBSAMPLING_X1);
+    po8030_advanced_config(FORMAT_RGB565, 270, 240, IMAGE_BUFFER_SIZE, 2, SUBSAMPLING_X1, SUBSAMPLING_X1);
     dcmi_enable_double_buffering();
     dcmi_set_capture_mode(CAPTURE_ONE_SHOT);
     dcmi_prepare();
 
     while(true){
+        chThdSleepMilliseconds(100);//limit max FPS
         //starts a capture
         dcmi_capture_start();
         //waits for the capture to be done
@@ -88,12 +89,12 @@ static THD_FUNCTION(process_image, arg) {
             //takes nothing from the second byte
             image_red[i/2] = (uint8_t)img_buff_ptr[i] & 0xF8;
         }
-        //copy the green frame to the red buffer :
+        //copy the green frame to the green buffer :
         for(uint16_t i = 0 ; i < (2 * IMAGE_BUFFER_SIZE) ; i+=2){
-			//extracts 3 LSbits of the first byte and the 3 MSbits of second byte
-			image_green[i/2] = (((uint8_t)img_buff_ptr[i] & 0x07) << 5 ) + (((uint8_t)img_buff_ptr[i+1] & 0xE0) >> 3);
+			//extracts 3 LSbits of the first byte and the 2 MSbits of second byte
+			image_green[i/2] = (((uint8_t)img_buff_ptr[i] & 0x07) << 5 ) + (((uint8_t)img_buff_ptr[i+1] & 0xC0) >> 3);
 		}
-        //copy the blue frame to the red buffer :
+        //copy the blue frame to the blue buffer :
         for(uint16_t i = 0 ; i < (2 * IMAGE_BUFFER_SIZE) ; i+=2){
             //extracts 5 LSbits of the LSByte (Second byte in big-endian format)
             //and rescale to 8 bits
@@ -109,15 +110,11 @@ static THD_FUNCTION(process_image, arg) {
             total_green += image_green[i];
             total_blue += image_blue[i];
         }
-        // Calculate the average of green and blue
-        uint32_t average_green_blue = (total_green + total_blue) / 2;
         // Check if the red frame value is at least RED_FACTOR times bigger than the average of green and blue
-        if ((double)total_red >= RED_FACTOR * (double)average_green_blue) {
+        if (total_red>= RED_FACTOR*(total_green + total_blue)/2) {
             // Signal that fire is detected
             setIsFireDetected(true);
-        } else {
-            //setIsFireDetected(false);
-        }
+        } // the flag is set back to false to ack. we dont reset it here but in behaviour
     }
 }
 
