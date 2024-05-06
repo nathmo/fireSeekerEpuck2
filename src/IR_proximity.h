@@ -15,18 +15,12 @@
 #include <hal.h>
 #include <sensors/proximity.h>
 
-void setFrontRight(bool value);
-void setFrontLeft(bool value);
-void setSideRight(bool value);
-void setSideLeft(bool value);
-void setNoObstacleDetected(bool value);
-bool getFrontRight(void);
-bool getFrontLeft(void);
-bool getSideRight(void);
-bool getSideLeft(void);
-bool getNoObstacleDetected(void);
-uint8_t get_closest_sensor_index(void);
-// Fonction pour démarrer le traitement de la proximité IR
-void process_IR_proximity_start(void);
+#define COLLISION_DISTANCE 500
+bool get_if_collision_front_right(void);
+bool get_if_collision_front_left(void);
+bool get_if_collision_side_right(void);
+bool get_if_collision_side_left(void);
+bool get_if_given_sensor_collision(uint8_t index);
+bool get_if_front_collision(void);
 
 #endif

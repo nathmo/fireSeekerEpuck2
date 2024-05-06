@@ -85,7 +85,7 @@ True │       │ False      │           │  ┌──┬──────�
 #include "movement.h"
 #include "blink.h"
 
-static THD_WORKING_AREA(WAstate_machine, 2048); // allocate memory for the tread extinguish_blink_pattern
+static THD_WORKING_AREA(WAstate_machine, 1024); // allocate memory for the tread extinguish_blink_pattern
 static THD_FUNCTION(state_machine, arg) {
     chRegSetThreadName(__FUNCTION__);
     (void)arg;
@@ -97,28 +97,30 @@ static THD_FUNCTION(state_machine, arg) {
         switch(state) {
             case 0:
                 // Move forward slow
-                if(getNoObstacleDetected()) {
-                    avancer(100);
-                    state = 0; // if there is no collision, we keep the course
-                } else {
+                if(get_if_front_collision()) {
                     stop_engines();
-                    state = 1; // if there is a collision, we stop the motor
+                    chThdSleepMilliseconds(50);
+                    state = 1;    // if there is a collision, we stop the motor
+                } else {
+                    avancer(100); // if there is no collision, we keep the course
+                    chThdSleepMilliseconds(50);
+                    state = 0;
                 }
                 break;
             case 1:
                 // turn toward obstacle
-                if (getFrontRight()) {
+                if (get_if_collision_front_right()) {
                     turn_toward_given_sensor(0);
-                    arrival_direction = 1;
-                } else if (getFrontLeft()){
+                    arrival_direction = 0;
+                } else if (get_if_collision_front_left()){
                     turn_toward_given_sensor(7);
-                    arrival_direction = 8;
-                } else if (getSideRight()){
-                    turn_toward_given_sensor(1);
-                    arrival_direction = 2;
-                } else if (getSideLeft()){
-                    turn_toward_given_sensor(6);
                     arrival_direction = 7;
+                } else if (get_if_collision_side_right()){
+                    turn_toward_given_sensor(1);
+                    arrival_direction = 1;
+                } else if (get_if_collision_side_left()){
+                    turn_toward_given_sensor(6);
+                    arrival_direction = 6;
                 }
                 state = 2;
                 break;
@@ -134,19 +136,19 @@ static THD_FUNCTION(state_machine, arg) {
                 break;
             case 3:
                 set_fire_blink_mode(false);
-                // turn away from obstacle
+                // turn away from obstacle in a bouncing fashion
                  switch(arrival_direction) {
-                    case 1:
-                        turn_specific_angle(165); // adapt angle for "bouncing"
+                    case 0:
+                        turn_specific_angle(165);
                         break;
-                    case 2:
+                    case 1:
                         turn_specific_angle(130);
                         break;
-                    case 7:
+                    case 6:
                         turn_specific_angle(-130);
                         break;
-                    case 8:
-                        turn_specific_angle(165);
+                    case 7:
+                        turn_specific_angle(-165);
                         break;
                  }
                 state = 0; // and return to move foward slow
@@ -154,13 +156,14 @@ static THD_FUNCTION(state_machine, arg) {
             case 4:
                 //enable light and rush forward
                 set_fire_blink_mode(true);
-                if(getNoObstacleDetected()) { // if the fire is extinguished
-                    stop_engines();
-                    state = 0; // if there is no collision, we keep the course
-                } else {
+                if(get_if_front_collision()) { // if the fire is not extinguished
                     avancer(200);
                     chThdSleepMilliseconds(50);
                     state = 5; // if there is still an obstacle -> state to check timeout
+                } else {
+                    set_fire_blink_mode(false);
+                    stop_engines();
+                    state = 0; // if there is no collision, we keep go back to state 0
                 }
                 break;
             case 5:

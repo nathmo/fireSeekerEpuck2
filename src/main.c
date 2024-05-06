@@ -46,7 +46,7 @@ int main(void) {
 	spi_comm_start();
 
     // start all the threads
-    process_IR_proximity_start();
+    //process_IR_proximity_start();
     process_blink_start();
     process_camera_start();
     process_state_machine_start();
