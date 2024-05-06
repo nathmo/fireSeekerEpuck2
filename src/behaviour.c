@@ -6,8 +6,6 @@
  * 
  * This file contains the high level logic of the state machine of the robot.
  * 
- * TODO : implement a thread to modele that state machine and pass the state as semaphore to other thread.  (Nathann Morand)
- * 
       ┌─────────────────────────┬───────────────────────────────┐
       │                         │                               │
       │                         │                               │
@@ -103,7 +101,7 @@ static THD_FUNCTION(state_machine, arg) {
                     state = 1;    // if there is a collision, we stop the motor
                 } else {
                     avancer(100); // if there is no collision, we keep the course
-                    chThdSleepMilliseconds(50);
+                    chThdSleepMilliseconds(200);
                     state = 0;
                 }
                 break;

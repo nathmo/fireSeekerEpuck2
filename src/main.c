@@ -18,7 +18,6 @@
 #include <blink.h>
 #include <behaviour.h>
 #include "main.h"
-#include "movement.h"
 
 messagebus_t bus;
 MUTEX_DECL(bus_lock);
@@ -46,57 +45,11 @@ int main(void) {
 	spi_comm_start();
 
     // start all the threads
-    //process_IR_proximity_start();
     process_blink_start();
     process_camera_start();
     process_state_machine_start();
-    while(true) {
-        //set_fire_blink_mode(false);
+    while(true) { // the thead in behaviour do the job (among others) main is empty
         chThdSleepMilliseconds(1000); // always sleep in main thread to let other thread time to run
-        /*
-        if (getFrontRight()) {
-            set_fire_blink_mode(true);
-            chThdSleepMilliseconds(100);
-            turn_toward_given_sensor(0);
-            chThdSleepMilliseconds(1000);
-            turn_toward_given_sensor(7);
-        } else if (getFrontLeft()){
-            set_fire_blink_mode(true);
-            chThdSleepMilliseconds(100);
-            turn_toward_given_sensor(7);
-            chThdSleepMilliseconds(1000);
-            turn_toward_given_sensor(0);
-        } else if (getSideRight()){
-            set_fire_blink_mode(true);
-            chThdSleepMilliseconds(100);
-            turn_toward_given_sensor(1);
-            chThdSleepMilliseconds(1000);
-            turn_toward_given_sensor(6);
-        } else if (getSideLeft()){
-            set_fire_blink_mode(true);
-            chThdSleepMilliseconds(100);
-            turn_toward_given_sensor(6);
-            chThdSleepMilliseconds(1000);
-            turn_toward_given_sensor(1);
-        } else if (getNoObstacleDetected()){
-            set_fire_blink_mode(false);
-            chThdSleepMilliseconds(100);
-            avancer(100);
-            chThdSleepMilliseconds(100);
-        }
-        */
-
-        // use camera to check if its a fire
-        /*
-        if (getIsFireDetected()){
-            set_fire_blink_mode(true);
-            setIsFireDetected(false);
-            chThdSleepMilliseconds(1000);
-        } else {
-            set_fire_blink_mode(false); // there is no fire
-            chThdSleepMilliseconds(1000);
-        }
-        */
 	}
 }
 

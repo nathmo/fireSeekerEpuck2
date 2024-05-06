@@ -7,8 +7,6 @@
  * This file contains the function related driving the led and showing
  * a colorful pattern (fire truck red and blue) or the default color when patrolling
  * 
- * TODO : create a function to play the lightshow when extinguishing a fire (Felipe Ramirez)
- * TODO : create a function that play the lightshow when moving around (Felipe Ramirez)
  * 
  */
 #include <ch.h>
