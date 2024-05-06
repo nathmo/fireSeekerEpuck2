@@ -4,17 +4,24 @@
  * 
  * File : movement.h
  * 
- * This file contains the function header related to the robot movement behaviour
- * such as the high level patrol and rushFire and the lower level fonction like
- * to rotate of a given angle or to proceed in straight line at a given speed.
+ * This file contains the function related to the robot movement
+ * 
  */
 
 #ifndef MOVEMENT_H
 #define MOVEMENT_H
 
-#include <stdint.h>
-
 #define DEGREES_TO_STEPS(angle_degrees) ((angle_degrees * 340) / 90) // Définition de la constante pour la conversion d'angle en steps
+#define TURNINGPACE 300
+
+// set the fonction qui font office de wrapper pour turn_toward_given_sensor avec un nom plus conviviale
+void turn_toward_sensor_front_right(void);
+
+void turn_toward_sensor_front_left(void);
+
+void turn_toward_sensor_side_right(void);
+
+void turn_toward_sensor_side_left(void);
 
 // Fonction pour orienter le robot vers un capteur spécifique
 void turn_toward_given_sensor(uint8_t sensor_index);

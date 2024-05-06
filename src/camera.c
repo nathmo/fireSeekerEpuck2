@@ -8,13 +8,10 @@
  * there is one thread for image capture and another to detect if "Fire" (red) is present
  * in the image.
  * 
- * TODO : check image size and optimise memory  (Nathann Morand)
  */
 
 #include <ch.h>
 #include <hal.h>
-#include <chprintf.h>
-#include <usbcfg.h>
 #include <camera/po8030.h>
 #include <camera/dcmi_camera.h>
 #include <camera.h>

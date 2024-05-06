@@ -5,18 +5,23 @@
  * This robot will patrol randomly an area while bouncing of obstable.
  * It use it's camera to look for the color of a fire (red) and will rush toward it.
  * the "Fire" are piece of paper that are red. The robot will roll them over to "extinguish" it
- * Once no more "Fire" is detected or that the timeout occure, it will resume it's patrol mode.
+ * Once there is no more "Fire" , it will resume it's patrol mode.
  * 
- * this file is the entry point and just start the main thread.
+ * this file is the entry point and just start the main threads.
  * 
- * TODO : start main threads  (Nathann Morand)
  */
 
+#include <camera/po8030.h>
+#include <camera/dcmi_camera.h>
+#include <msgbus/messagebus.h>
+#include <parameter/parameter.h>
+#include <spi_comm.h>
 
-#include <IR_proximity.h>
-#include <camera.h>
-#include <blink.h>
-#include <behaviour.h>
+#include "../e-puck2_main-processor/src/sensors/proximity.h"
+#include "IR_proximity.h"
+#include "camera.h"
+#include "blink.h"
+#include "behaviour.h"
 #include "main.h"
 
 messagebus_t bus;
@@ -45,9 +50,9 @@ int main(void) {
 	spi_comm_start();
 
     // start all the threads
-    process_blink_start();
-    process_camera_start();
-    process_state_machine_start();
+    process_blink_start(); // thread that deal with the led to make the red and blue light
+    process_camera_start(); // process that capture and process the image
+    process_state_machine_start(); // process that deal with the high level behaviour of the robot
     while(true) { // the thead in behaviour do the job (among others) main is empty
         chThdSleepMilliseconds(5000); // always sleep in main thread to let other thread time to run
 	}

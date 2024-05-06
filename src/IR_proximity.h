@@ -11,11 +11,10 @@
 #ifndef IR_PROXIMITY_H
 #define IR_PROXIMITY_H
 
-#include <ch.h>
-#include <hal.h>
-#include <sensors/proximity.h>
+#include <stdbool.h>
 
 #define COLLISION_DISTANCE 500
+
 bool get_if_collision_front_right(void);
 bool get_if_collision_front_left(void);
 bool get_if_collision_side_right(void);

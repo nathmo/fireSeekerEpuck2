@@ -4,13 +4,8 @@
  * 
  * File : movement.c
  * 
- * This file contains the function related to the robot movement behaviour
- * such as the high level patrol and rushFire and the lower level fonction like
- * to rotate of a given angle or to proceed in straight line at a given speed.
+ * This file contains the function related to the robot movement
  * 
- * TODO : create a function to turn a given number of sensor (angle) (Felipe Ramirez)
- * TODO : create a function that advance fast (Felipe Ramirez)
- * TODO : create a function that adance slowly (Felipe Ramirez)
  */
 
 #include <ch.h>
@@ -18,49 +13,63 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "../e-puck2_main-processor/src/motors.h"
-#include "../e-puck2_main-processor/src/leds.h"
 #include <math.h>
 #include "movement.h"
-#include "blink.h"
+
+void turn_toward_sensor_front_right(void) {
+    turn_toward_given_sensor(0);
+}
+
+void turn_toward_sensor_front_left(void) {
+    turn_toward_given_sensor(7);
+}
+
+void turn_toward_sensor_side_right(void) {
+    turn_toward_given_sensor(1);
+}
+
+void turn_toward_sensor_side_left(void) {
+    turn_toward_given_sensor(6);
+}
 
 void turn_toward_given_sensor(uint8_t sensor_index) {
     const int16_t sensor_angles[8]={15, 50, 90, 150, -150, -90, -50, -15};
-    int16_t number_of_step = (sensor_angles[sensor_index]*7)/2;
+    int16_t number_of_step = (sensor_angles[sensor_index]*9)/2; // integer ratio so no float :) -> experimentally determined
     motors_init();
     int8_t direction = 1; 
-    left_motor_set_pos(0);
+    left_motor_set_pos(0);// reset step counter so we can wait using the while loop
     right_motor_set_pos(0);
-    if(number_of_step<0){
+    if(number_of_step<0){ //used to deal with negative angle -> invert direction of rotation
         direction=(-1);
     }
-    left_motor_set_speed(direction*(300));
-    right_motor_set_speed(direction*(-300));
+    left_motor_set_speed(direction*(TURNINGPACE));
+    right_motor_set_speed(direction*(-TURNINGPACE));
     while(left_motor_get_pos() != number_of_step){
-        chThdSleepMilliseconds(1);
+        chThdSleepMilliseconds(1); // dont block other threads while turning
     }
     while(right_motor_get_pos() != -number_of_step){
-        chThdSleepMilliseconds(1);
+        chThdSleepMilliseconds(1); // dont block other threads while turning
     }
     left_motor_set_speed(0);
     right_motor_set_speed(0); 
 }
 
 void turn_specific_angle(int16_t angle_degrees) {
-    int16_t number_of_step = (angle_degrees*9)/2;
+    int16_t number_of_step = (angle_degrees*9)/2; // integer ratio so no float :) -> experimentally determined
     motors_init();
     int8_t direction = 1; 
-    left_motor_set_pos(0);
+    left_motor_set_pos(0); // reset step counter so we can wait using the while loop
     right_motor_set_pos(0);
-    if(number_of_step<0){
+    if(number_of_step<0){//used to deal with negative angle -> invert direction of rotation
         direction=(-1);
     }
-    left_motor_set_speed(direction*(300));
-    right_motor_set_speed(direction*(-300));
+    left_motor_set_speed(direction*(TURNINGPACE));
+    right_motor_set_speed(direction*(-TURNINGPACE));
     while(left_motor_get_pos() != number_of_step){
-        chThdSleepMilliseconds(1);
+        chThdSleepMilliseconds(1);// dont block other threads while turning
     }
     while(right_motor_get_pos() != -number_of_step){
-        chThdSleepMilliseconds(1);
+        chThdSleepMilliseconds(1);// dont block other threads while turning
     }
     left_motor_set_speed(0);
     right_motor_set_speed(0); 
@@ -70,14 +79,14 @@ void turn_specific_angle(int16_t angle_degrees) {
 void avancer(int16_t vitesse) {
     motors_init();
 
-    left_motor_set_pos(0);
+    left_motor_set_pos(0); // reset the step counter
     right_motor_set_pos(0);
 
-    left_motor_set_speed(vitesse);
+    left_motor_set_speed(vitesse); // set the speed for both motor
     right_motor_set_speed(vitesse);
 }
 
 void stop_engines(void) {
-    left_motor_set_speed(0);
+    left_motor_set_speed(0); 
     right_motor_set_speed(0);
 }

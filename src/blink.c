@@ -11,12 +11,9 @@
  */
 #include <ch.h>
 #include <hal.h>
-#include <math.h>
-#include <usbcfg.h>
-#include <chprintf.h>
-#include <blink.h>
 #include <leds.h>
 #include <stdbool.h>
+#include "blink.h"
 
 // Define the struct with a single bit flag
 struct Blink_flag {
@@ -44,7 +41,7 @@ static THD_FUNCTION(blink_pattern, arg) {
     volatile int intensity = 0;
     volatile int direction = 1; // Direction de l'augmentation (1 pour augmenter, -1 pour diminuer)
     while(true){
-        if(get_fire_blink_mode()){
+        if(get_fire_blink_mode()){// fait tourner une led rouge autour du robot
             clear_leds();
             toggle_rgb_led(LED2, RED_LED, 100); 
             chThdSleepMilliseconds(100);          
@@ -59,9 +56,9 @@ static THD_FUNCTION(blink_pattern, arg) {
             chThdSleepMilliseconds(100);       
             clear_leds();  
         } else { // roaming blink pattern
-            while (intensity >= 0 && intensity <= 50) {
+            while (intensity >= 0 && intensity <= 50) { // fait un "glowing" effect sur 4 led 
                 clear_leds();
-                // Allumer les LED rouges avec l'intensité actuelle
+                // Allumer les LED bleu avec l'intensité actuelle
                 toggle_rgb_led(LED2, BLUE_LED, intensity);
                 toggle_rgb_led(LED4, BLUE_LED, intensity);
                 toggle_rgb_led(LED6, BLUE_LED, intensity);

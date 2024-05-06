@@ -15,10 +15,10 @@ extern "C" {
 #include <usbcfg.h>
 #include <motors.h>
 #include <camera/po8030.h>
+#include <camera/dcmi_camera.h>
 #include <chprintf.h>
 #include <spi_comm.h>
 #include <stdbool.h>
-#include <camera/dcmi_camera.h>
 #include <msgbus/messagebus.h>
 #include <parameter/parameter.h>
 
