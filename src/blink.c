@@ -34,7 +34,7 @@ bool get_fire_blink_mode(void) {
 }
 
 
-static THD_WORKING_AREA(WAblink_pattern, 512); // allocate memory for the tread roaming_blink_pattern
+static THD_WORKING_AREA(WAblink_pattern, 256);
 static THD_FUNCTION(blink_pattern, arg) {
     chRegSetThreadName(__FUNCTION__);
     (void)arg;
@@ -43,17 +43,17 @@ static THD_FUNCTION(blink_pattern, arg) {
     while(true){
         if(get_fire_blink_mode()){// fait tourner une led rouge autour du robot
             clear_leds();
-            toggle_rgb_led(LED2, RED_LED, 100); 
-            chThdSleepMilliseconds(100);          
+            toggle_rgb_led(LED2, RED_LED, LEDINTENSITY); 
+            chThdSleepMilliseconds(DELAYLEDTURNAROUND);          
             clear_leds();                         
-            toggle_rgb_led(LED4, RED_LED, 100);  
-            chThdSleepMilliseconds(100);          
+            toggle_rgb_led(LED4, RED_LED, LEDINTENSITY);  
+            chThdSleepMilliseconds(DELAYLEDTURNAROUND);          
             clear_leds();                         
-            toggle_rgb_led(LED6, RED_LED, 100);  
-            chThdSleepMilliseconds(100);          
+            toggle_rgb_led(LED6, RED_LED, LEDINTENSITY);  
+            chThdSleepMilliseconds(DELAYLEDTURNAROUND);          
             clear_leds();                          
-            toggle_rgb_led(LED8, RED_LED, 100);  
-            chThdSleepMilliseconds(100);       
+            toggle_rgb_led(LED8, RED_LED, LEDINTENSITY);  
+            chThdSleepMilliseconds(DELAYLEDTURNAROUND);       
             clear_leds();  
         } else { // roaming blink pattern
             while (intensity >= 0 && intensity <= 50) { // fait un "glowing" effect sur 4 led 
@@ -65,7 +65,7 @@ static THD_FUNCTION(blink_pattern, arg) {
                 toggle_rgb_led(LED8, BLUE_LED, intensity);
 
                 // Attendre un court laps de temps pour observer le changement progressif
-                chThdSleepMilliseconds(10);
+                chThdSleepMilliseconds(DELAYLEDGLOW);
 
                 // Mettre à jour l'intensité pour la prochaine itération
                 intensity += direction;

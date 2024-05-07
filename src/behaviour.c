@@ -87,31 +87,31 @@ True │       │ False      │                                     │
 #include "blink.h"
 #include "behaviour.h"
 
-static THD_WORKING_AREA(WAstate_machine, 1024); // allocate memory for the tread extinguish_blink_pattern
+static THD_WORKING_AREA(WAstate_machine, 512);
 static THD_FUNCTION(state_machine, arg) {
     chRegSetThreadName(__FUNCTION__);
     (void)arg;
-    uint8_t state = 0; // Initial state
-    uint8_t previous_state = -1; // we check if we actually changed state since last time
-    uint8_t arrival_direction = 0;
+    uint8_t state = GOFORWARD; // Initial state
+    uint8_t previous_state = NOTSET; // we check if we actually changed state since last time
+    uint8_t arrival_direction = NOTSET;
     // State machine loop
     while (true) {
         switch(state) {
-            case 0:
+            case GOFORWARD:
                 // Move forward slow
                 if(get_if_front_collision()) {
                     stop_engines();
-                    state = 1;    // if there is a collision, we stop the motor
+                    state = TURNTOWARDSENSOR;    // if there is a collision, we stop the motor
                 } else {
                     if(state != previous_state) // we check if we actually changed state since last time
                     {// this prevent problem with avancer() who dont work if called to often
                         previous_state = state;
-                        avancer(SLOWPACE); // if there is no collision, we keep the course
-                        state = 0;
+                        go_forward(SLOWPACE); // if there is no collision, we keep the course
+                        state = GOFORWARD;
                     }
                 }
                 break;
-            case 1:
+            case TURNTOWARDSENSOR:
                 previous_state = state; // this prevent problem with avancer() who dont work if called to often
                 // turn toward obstacle
                 if (get_if_collision_front_right()) {
@@ -127,50 +127,50 @@ static THD_FUNCTION(state_machine, arg) {
                     turn_toward_sensor_side_left();
                     arrival_direction = SIDELEFT;
                 }
-                state = 2;
+                state = CHECKIFFIRE;
                 break;
-            case 2:
+            case CHECKIFFIRE:
                 previous_state = state; // this prevent problem with avancer() who dont work if called too often
                 setIsFireDetected(false); // reset the flag so we dont get detection that happened before
                 chThdSleepMilliseconds(300); // time to take and process the image
                 // use camera to check if its a fire
                 if (getIsFireDetected()){
-                    state = 4; // there is a fire -> ram into it to extinguish
+                    state = EXTINGUISHFIRE; // there is a fire -> ram into it to extinguish
                     setIsFireDetected(false); // reset the flag so ack that we processed it
                 } else {
-                    state = 3; // there is no fire -> bounce off 
+                    state = BOUNCEAWAY; // there is no fire -> bounce off 
                 }
                 break;
-            case 3:
+            case BOUNCEAWAY:
                 previous_state = state; // this prevent problem with avancer() who dont work if called too often
                 // turn away from obstacle in a bouncing fashion
                 switch(arrival_direction) {
                     case FRONTRIGHT:
-                        turn_specific_angle(165); // 180°-15° (angle of IR sensor relative to front)
+                        turn_specific_angle(BOUNCEANGLEFRONTRIGHT); // 180°-15° (angle of IR sensor relative to front)
                         break;
                     case SIDERIGHT:
-                        turn_specific_angle(130); // 180°-50° (angle of IR sensor relative to front)
+                        turn_specific_angle(BOUNCEANGLESIDERIGHT); // 180°-50° (angle of IR sensor relative to front)
                         break;
                     case SIDELEFT:
-                        turn_specific_angle(-130); // -(180°-50°) (angle of IR sensor relative to front)
+                        turn_specific_angle(BOUNCEANGLESIDELEFT); // -(180°-50°) (angle of IR sensor relative to front)
                         break;
                     case FRONTLEFT:
-                        turn_specific_angle(-165); // -(180°-15°) (angle of IR sensor relative to front)
+                        turn_specific_angle(BOUNCEANGLEFRONTLEFT); // -(180°-15°) (angle of IR sensor relative to front)
                         break;
                 }
-                state = 0; // and return to move foward slow
+                state = GOFORWARD; // and return to move foward slow
                 break;
-            case 4:
+            case EXTINGUISHFIRE:
                 //enable light and rush forward to destroy the fire
                 set_fire_blink_mode(true);
                 previous_state = state; // this prevent problem with avancer() who dont work if called too often
-                avancer(FASTPACE);
+                go_forward(FASTPACE);
                 chThdSleepMilliseconds(2000); // give enough time to extinguish the fire
                 set_fire_blink_mode(false);
-                state = 3; // once done -> we turn away from the fire
+                state = BOUNCEAWAY; // once done -> we turn away from the fire
                 break;
             default:
-                state = 0;  // Go back to the initial state
+                state = GOFORWARD;  // Go back to the initial state
                 break;
         }
         chThdSleepMilliseconds(50);

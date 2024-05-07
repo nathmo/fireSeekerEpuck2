@@ -37,7 +37,7 @@ bool getIsFireDetected(void) {
     return camera_flag.is_fire_detected;
 }
 
-static THD_WORKING_AREA(WAcapture_image, 1024);
+static THD_WORKING_AREA(WAcapture_image, 512);
 static THD_FUNCTION(capture_image, arg) {
     chRegSetThreadName(__FUNCTION__);
     (void)arg;
@@ -65,7 +65,7 @@ static THD_FUNCTION(capture_image, arg) {
 
 }
 
-static THD_WORKING_AREA(WAprocess_image, 8192);
+static THD_WORKING_AREA(WAprocess_image, 4096);
 static THD_FUNCTION(process_image, arg) {
     chRegSetThreadName(__FUNCTION__);
     (void)arg;

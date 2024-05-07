@@ -17,30 +17,30 @@
 #include "movement.h"
 
 void turn_toward_sensor_front_right(void) {
-    turn_toward_given_sensor(0);
+    turn_toward_given_sensor(INDEXFRONTRIGHT);
 }
 
 void turn_toward_sensor_front_left(void) {
-    turn_toward_given_sensor(7);
+    turn_toward_given_sensor(INDEXFRONTLEFT);
 }
 
 void turn_toward_sensor_side_right(void) {
-    turn_toward_given_sensor(1);
+    turn_toward_given_sensor(INDEXSIDERIGHT);
 }
 
 void turn_toward_sensor_side_left(void) {
-    turn_toward_given_sensor(6);
+    turn_toward_given_sensor(INDEXSIDELEFT);
 }
 
 void turn_toward_given_sensor(uint8_t sensor_index) {
     const int16_t sensor_angles[8]={15, 50, 90, 150, -150, -90, -50, -15};
     int16_t number_of_step = (sensor_angles[sensor_index]*9)/2; // integer ratio so no float :) -> experimentally determined
     motors_init();
-    int8_t direction = 1; 
+    int8_t direction = FORWARD; 
     left_motor_set_pos(0);// reset step counter so we can wait using the while loop
     right_motor_set_pos(0);
     if(number_of_step<0){ //used to deal with negative angle -> invert direction of rotation
-        direction=(-1);
+        direction=(BACKWARD);
     }
     left_motor_set_speed(direction*(TURNINGPACE));
     right_motor_set_speed(direction*(-TURNINGPACE));
@@ -57,11 +57,11 @@ void turn_toward_given_sensor(uint8_t sensor_index) {
 void turn_specific_angle(int16_t angle_degrees) {
     int16_t number_of_step = (angle_degrees*9)/2; // integer ratio so no float :) -> experimentally determined
     motors_init();
-    int8_t direction = 1; 
+    int8_t direction = FORWARD; 
     left_motor_set_pos(0); // reset step counter so we can wait using the while loop
     right_motor_set_pos(0);
     if(number_of_step<0){//used to deal with negative angle -> invert direction of rotation
-        direction=(-1);
+        direction=(BACKWARD);
     }
     left_motor_set_speed(direction*(TURNINGPACE));
     right_motor_set_speed(direction*(-TURNINGPACE));
@@ -76,7 +76,7 @@ void turn_specific_angle(int16_t angle_degrees) {
 }
 
 
-void avancer(int16_t vitesse) {
+void go_forward(int16_t vitesse) {
     motors_init();
 
     left_motor_set_pos(0); // reset the step counter

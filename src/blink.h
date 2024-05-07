@@ -13,6 +13,10 @@
 
 #include <stdbool.h>
 
+#define LEDINTENSITY 100
+#define DELAYLEDTURNAROUND 100
+#define DELAYLEDGLOW 15
+
 // Fonction pour démarrer le motif de clignotement de patrouille
 void process_blink_start(void);
 
